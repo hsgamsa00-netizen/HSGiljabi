@@ -6,7 +6,7 @@ window.Digest = (function () {
   const ALL = (window.CARDS || []);
   const NZ = ALL.filter(c => c.출처 !== "csd");
   const fmt = n => n.toLocaleString("ko-KR");
-  let F = { gye: null, disp: null, knd: null, fld: null, viol: null, sub: null, crit: null, crime: null, yrFrom: null, yrTo: null, q: "" };
+  let F = { gye: null, disp: null, knd: null, fld: null, viol: null, sub: null, chae: null, crit: null, crime: null, yrFrom: null, yrTo: null, q: "" };
   let sel = null, _oc = "";
   function setOC(v) { _oc = (v || "").trim(); if (sel && document.getElementById("detail").querySelector(".casebody")) showDetail(sel.id); }
 
@@ -569,7 +569,7 @@ window.Digest = (function () {
   window.gotoDigest = function (o) {
     o = o || {};
     F.gye = o.gye || null; F.disp = o.disp || null; F.knd = o.knd || null; F.fld = o.fld || null; F.viol = o.viol || null;
-    F.sub = null; F.crit = null; F.crime = null; F.q = "";
+    F.sub = null; F.chae = null; F.crit = null; F.crime = null; F.q = "";
     const qEl = document.getElementById("q"); if (qEl) qEl.value = "";
     const lo = document.getElementById("yrLo"), hi = document.getElementById("yrHi");
     if (lo && hi) { lo.value = (o.yrFrom != null ? o.yrFrom : MINY); hi.value = (o.yrTo != null ? o.yrTo : MAXY); if (hi.oninput) hi.oninput(); }
@@ -601,6 +601,7 @@ window.Digest = (function () {
     if (F.fld && !(c.분야 || []).includes(F.fld)) return false;
     if (F.viol && !(c.위반유형 || []).includes(F.viol)) return false;
     if (F.sub && !(c.소주제군 || []).includes(F.sub)) return false;
+    if (F.chae && !c.채용전수조사) return false;   // 채용실태 전수조사(특정감사) 빠른 필터
     if (F.crit && !(c.중점점검 || []).includes(F.crit)) return false;
     if (F.crime && !(c.형사연계 || []).includes(F.crime)) return false;
     if (F.yrFrom != null && c.연도) { const y = parseInt(c.연도, 10); if (y < F.yrFrom || y > F.yrTo) return false; }
@@ -628,9 +629,11 @@ window.Digest = (function () {
     renderViolSub();
     syncChips("f_gye", F.gye); syncChips("f_disp", F.disp); syncChips("f_knd", F.knd);
     syncPicker();
+    { const cb = document.getElementById("chaeBtn"); if (cb) { cb.classList.toggle("on", !!F.chae); cb.setAttribute("aria-pressed", F.chae ? "true" : "false"); } }
     const cr = [];
     if (F.fld) cr.push(["fld", F.fld]); if (F.viol) cr.push(["viol", F.viol]);
     if (F.sub) cr.push(["sub", F.sub]);
+    if (F.chae) cr.push(["chae", "🧑‍💼 채용실태 전수조사"]);
     if (F.crit) cr.push(["crit", "🔎 " + F.crit]);
     if (F.crime) cr.push(["crime", "⚖️ " + F.crime]);
     ["gye", "knd", "disp"].forEach(k => { if (F[k]) cr.push([k, F[k]]); });
@@ -679,6 +682,7 @@ window.Digest = (function () {
     buildFieldGrid();
     chips("f_gye", "기관계열", "gye", 5); chips("f_knd", "감사종류", "knd", 7); chips("f_disp", "처분종류", "disp", 9);
     buildPicker(); wirePicker();
+    { const cb = document.getElementById("chaeBtn"); if (cb) { const n = ALL.filter(c => c.채용전수조사).length; const cn = document.getElementById("chaeCnt"); if (cn) cn.textContent = fmt(n); cb.onclick = () => { F.chae = F.chae ? null : true; render(); }; } }
     buildYearSlider();
     document.getElementById("q").oninput = e => { F.q = e.target.value.trim(); render(); };
     { const ss = document.getElementById("sortSel"); if (ss) { ss.value = SORT; ss.onchange = () => { SORT = ss.value; render(); }; } }
@@ -688,7 +692,7 @@ window.Digest = (function () {
         const close = () => { lc.classList.remove("open"); if (dim) { dim.remove(); dim = null; } ovDone("filter"); };
         fb.onclick = () => { if (lc.classList.contains("open")) return close(); lc.classList.add("open"); dim = document.createElement("div"); dim.className = "fltdim"; dim.onclick = close; document.body.appendChild(dim); ovOpen("filter", close); }; } }
     try { window.matchMedia("(max-width:768px)").addEventListener("change", () => { document.body.classList.remove("mob-detail"); render(); }); } catch (e) {}   // 모바일↔데스크톱 전환 시 요약 모드 갱신
-    document.getElementById("clear").onclick = () => { F = { gye: null, disp: null, knd: null, fld: null, viol: null, sub: null, crit: null, crime: null, yrFrom: MINY, yrTo: MAXY, q: "" }; document.getElementById("q").value = ""; const lo = document.getElementById("yrLo"); if (lo) { lo.value = MINY; document.getElementById("yrHi").value = MAXY; document.getElementById("yrHi").oninput(); } else render(); };
+    document.getElementById("clear").onclick = () => { F = { gye: null, disp: null, knd: null, fld: null, viol: null, sub: null, chae: null, crit: null, crime: null, yrFrom: MINY, yrTo: MAXY, q: "" }; document.getElementById("q").value = ""; const lo = document.getElementById("yrLo"); if (lo) { lo.value = MINY; document.getElementById("yrHi").value = MAXY; document.getElementById("yrHi").oninput(); } else render(); };
     document.getElementById("lawmClose").onclick = closeLawModal;
     document.getElementById("lawModal").addEventListener("click", e => { if (e.target.id === "lawModal") closeLawModal(); });
     document.getElementById("caseModalClose").onclick = closeCaseModal;

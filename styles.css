@@ -92,6 +92,13 @@ html[data-theme="dark"] .relrow:hover{background:#212d3e}
 .pchip.crit{background:#f6efe0;border-color:#e3d2ab;color:#7a5c2e}.pchip.crit b{color:#b59a5e}
 .pchip.crime{background:#eaf0f4;border-color:#c4d4de;color:#3f5a6b}.pchip.crime b{color:#7e98a8}
 .pchip.on{outline:2px solid var(--accent);outline-offset:1px;font-weight:700}
+.chaetgl{display:flex;align-items:center;gap:6px;width:100%;justify-content:center;margin-bottom:10px;padding:9px 12px;font-size:13px;font-weight:700;color:#7a4a13;background:#fbf1e2;border:1px solid #e7c98f;border-radius:9px;cursor:pointer;white-space:nowrap}
+.chaetgl:hover{border-color:#d9a94e;background:#f8e9cf}
+.chaetgl.on{color:#fff;background:#c07a1e;border-color:#a5630f}
+.chaetgl .chaen{font-weight:700;opacity:.85;font-size:11.5px}
+.chaetgl.on .chaen{opacity:.95}
+html[data-theme="dark"] .chaetgl{color:#e7b577;background:#2a2113;border-color:#5a4524}
+html[data-theme="dark"] .chaetgl.on{color:#fff;background:#9a6418;border-color:#caa050}
 .pchips .pchip-tail{display:none}
 .pchips.show-tail .pchip-tail{display:inline-flex}
 .pmore{margin-top:7px;font-size:11.5px;color:#5a6b7d;background:none;border:0;border-radius:6px;padding:3px 4px;cursor:pointer;text-align:left}

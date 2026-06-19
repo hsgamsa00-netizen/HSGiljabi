@@ -13,7 +13,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="stylesheet" href="styles.css?v=0.1.14">
+<link rel="stylesheet" href="styles.css?v=0.1.15">
 <script>try{if(localStorage.getItem("theme_key")!=="light")document.documentElement.setAttribute("data-theme","dark");}catch(e){}</script>
 </head>
 <body>
@@ -138,6 +138,7 @@
 <div id="view-digest" class="view" role="tabpanel" aria-labelledby="tabDigest">
   <div class="grid">
     <div class="col left">
+      <button class="chaetgl" id="chaeBtn" type="button" role="switch" aria-pressed="false" title="지자체 연 1회 채용실태 전수조사(특정감사) 지적만 따로 보기 — 다시 누르면 전체로">🧑‍💼 채용실태 전수조사만 보기 <span class="chaen" id="chaeCnt"></span></button>
       <div class="fldgrid" id="fldGrid"></div>
       <div class="violsub" id="violSub"><div class="vh"><span id="violSubH">위반유형</span> <span class="bhint" title="감사 표준 ‘잘못’ 분류(12종) — 어떤 종류의 잘못인지" aria-hidden="true">ⓘ</span></div><div class="vchips" id="violChips"></div><div class="vhint">※ 한 사례가 여러 유형·분야에 해당될 수 있어, 합계가 분야 건수보다 많을 수 있습니다(중복 집계).</div></div>
       <div class="sec">주제 · 표식 <span class="bhint" title="구체 사안 태그 — 무슨 사안인지(세부주제·중점점검·형사연계)" aria-hidden="true">ⓘ</span> <span class="scnt2">중점점검 · 형사연계 · 세부주제</span></div>
@@ -336,19 +337,19 @@
 </div>
 
 <!-- R0 데이터 분할 로드 — meta(집계·트리) + 카드 6파트(연도 오름차순·병렬 다운로드·증분 캐시) + join -->
-<script src="cards_data.js?v=0.1.14"></script>
-<script src="norm_dict.js?v=0.1.14"></script>
-<script src="related.js?v=0.1.14"></script>
-<script src="kogl.js?v=0.1.14"></script>
-<script src="onboarding.js?v=0.1.14"></script>
-<script src="digest.js?v=0.1.14"></script>
-<script src="graphView.js?v=0.1.14"></script>
-<script src="dashboard.js?v=0.1.14"></script>
-<script src="analysisTutorial.js?v=0.1.14"></script>
-<script src="panelGuide.js?v=0.1.14"></script>
-<script src="followAlong.js?v=0.1.14"></script>
-<script src="tour.js?v=0.1.14"></script>
-<script src="memo.js?v=0.1.14"></script>
-<script src="app.js?v=0.1.14"></script>
+<script src="cards_data.js?v=0.1.15"></script>
+<script src="norm_dict.js?v=0.1.15"></script>
+<script src="related.js?v=0.1.15"></script>
+<script src="kogl.js?v=0.1.15"></script>
+<script src="onboarding.js?v=0.1.15"></script>
+<script src="digest.js?v=0.1.15"></script>
+<script src="graphView.js?v=0.1.15"></script>
+<script src="dashboard.js?v=0.1.15"></script>
+<script src="analysisTutorial.js?v=0.1.15"></script>
+<script src="panelGuide.js?v=0.1.15"></script>
+<script src="followAlong.js?v=0.1.15"></script>
+<script src="tour.js?v=0.1.15"></script>
+<script src="memo.js?v=0.1.15"></script>
+<script src="app.js?v=0.1.15"></script>
 </body>
 </html>
