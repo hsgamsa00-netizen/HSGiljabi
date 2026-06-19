@@ -13,7 +13,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="stylesheet" href="styles.css?v=0.1.5">
+<link rel="stylesheet" href="styles.css?v=0.1.6">
 <script>try{if(localStorage.getItem("theme_key")!=="light")document.documentElement.setAttribute("data-theme","dark");}catch(e){}</script>
 </head>
 <body>
@@ -216,12 +216,6 @@
         <div class="tiles" id="tiles"></div>
       </div>
 
-      <!-- 반복 — 같은 지적이 여러 기관 반복(구조적 신호) -->
-      <div class="panel band">
-        <h2 title="동일 유형 지적이 여러 기관에서 반복된 Top — 구조적·제도개선 점검 신호 · 막대 클릭 → 그 사례 묶음">🔁 다발 반복 지적 <span class="bflow">반복</span><span class="bhint" title="제목이 같은 지적을 기관과 무관하게 묶은 것입니다. 막대를 클릭하면 그 묶음 사례가 우측 ‘관련 사례’에 나옵니다. 사례는 모두 보존되며 삭제하지 않습니다." aria-hidden="true">ⓘ</span></h2>
-        <div class="repbox" id="repBox"></div>
-      </div>
-
       <!-- 무엇을 → 어떻게 — 위반유형별 처분 -->
       <div class="panel band">
         <h2 title="① 위반유형을 고르면 → ② 그 유형의 처분 비중(처분요구서 집계)">위반유형별 처분 분포 <span class="bflow">무엇을 → 어떻게</span><span class="bhint" aria-hidden="true">ⓘ</span></h2>
@@ -235,6 +229,12 @@
       <div class="panel band why">
         <h2 title="‘왜 발생했나’는 집계 통계가 아니라 개별 사례에 드러납니다">원인·배경은 개별 사례에서 <span class="bflow">왜</span><span class="bhint" aria-hidden="true">ⓘ</span></h2>
         <div class="whybody"><div class="whysteps">분야·위반유형 막대를 클릭하면 선례의 <b>착안점·적신호·반론·검증</b>에서 원인·배경을 확인할 수 있습니다.</div><button class="whygo" id="whyGo" type="button">착안점 찾기로 →</button></div>
+      </div>
+
+      <!-- 반복 — 같은 지적이 여러 기관 반복(구조적 신호) · 맨 끝(왜·6하원칙 다음) -->
+      <div class="panel band">
+        <h2 title="동일 유형 지적이 여러 기관에서 반복된 Top — 구조적·제도개선 점검 신호 · 막대 클릭 → 그 사례 묶음">🔁 다발 반복 지적 <span class="bflow">반복</span><span class="bhint" title="제목이 같은 지적을 기관과 무관하게 묶은 것입니다. 막대를 클릭하면 그 묶음 사례가 우측 ‘관련 사례’에 나옵니다. 사례는 모두 보존되며 삭제하지 않습니다." aria-hidden="true">ⓘ</span></h2>
+        <div class="repbox" id="repBox"></div>
       </div>
     </div>
 
@@ -339,19 +339,19 @@
 </div>
 
 <!-- R0 데이터 분할 로드 — meta(집계·트리) + 카드 6파트(연도 오름차순·병렬 다운로드·증분 캐시) + join -->
-<script src="cards_data.js?v=0.1.5"></script>
-<script src="norm_dict.js?v=0.1.5"></script>
-<script src="related.js?v=0.1.5"></script>
-<script src="kogl.js?v=0.1.5"></script>
-<script src="onboarding.js?v=0.1.5"></script>
-<script src="digest.js?v=0.1.5"></script>
-<script src="graphView.js?v=0.1.5"></script>
-<script src="dashboard.js?v=0.1.5"></script>
-<script src="analysisTutorial.js?v=0.1.5"></script>
-<script src="panelGuide.js?v=0.1.5"></script>
-<script src="followAlong.js?v=0.1.5"></script>
-<script src="tour.js?v=0.1.5"></script>
-<script src="memo.js?v=0.1.5"></script>
-<script src="app.js?v=0.1.5"></script>
+<script src="cards_data.js?v=0.1.6"></script>
+<script src="norm_dict.js?v=0.1.6"></script>
+<script src="related.js?v=0.1.6"></script>
+<script src="kogl.js?v=0.1.6"></script>
+<script src="onboarding.js?v=0.1.6"></script>
+<script src="digest.js?v=0.1.6"></script>
+<script src="graphView.js?v=0.1.6"></script>
+<script src="dashboard.js?v=0.1.6"></script>
+<script src="analysisTutorial.js?v=0.1.6"></script>
+<script src="panelGuide.js?v=0.1.6"></script>
+<script src="followAlong.js?v=0.1.6"></script>
+<script src="tour.js?v=0.1.6"></script>
+<script src="memo.js?v=0.1.6"></script>
+<script src="app.js?v=0.1.6"></script>
 </body>
 </html>
