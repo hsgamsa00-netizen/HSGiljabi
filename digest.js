@@ -461,12 +461,15 @@ window.Digest = (function () {
   ];
   function buildPicker() {
     const body = document.getElementById("pickBody"); if (!body) return;
+    const SUB_HEAD = 40;   // 세부주제 파편화: 빈도 상위 40개만 기본 노출(꼬리는 더보기·검색으로) — count==1이 65%
     body.innerHTML = PICK_GROUPS.map(g => {
       const items = facet(g.fk, NZ); if (!items.length) return "";
-      const chips = items.map(([k, v]) => `<span class="pchip ${g.cls}" role="button" tabindex="0" aria-pressed="false" data-dim="${g.dim}" data-k="${esc(k)}" title="${esc(k)} — 전체 ${v}건${g.dim === "sub" ? " (여러 분야 합산 · 분야 펼침의 분야 내 건수와 다를 수 있음)" : ""}">${esc(k)}<b>${v}</b></span>`).join("");
-      return `<div class="pgrp"><div class="pgh ${g.cls}">${g.icon ? g.icon + " " : ""}${g.label}</div><div class="pchips${g.dim === "sub" ? " pgsub" : ""}">${chips}</div></div>`;
+      const chips = items.map(([k, v], i) => `<span class="pchip ${g.cls}${(g.dim === "sub" && i >= SUB_HEAD) ? " pchip-tail" : ""}" role="button" tabindex="0" aria-pressed="false" data-dim="${g.dim}" data-k="${esc(k)}" title="${esc(k)} — 전체 ${v}건${g.dim === "sub" ? " (여러 분야 합산 · 분야 펼침의 분야 내 건수와 다를 수 있음)" : ""}">${esc(k)}<b>${v}</b></span>`).join("");
+      const more = (g.dim === "sub" && items.length > SUB_HEAD) ? `<button class="pmore" type="button" data-total="${items.length}">＋ 전체 ${items.length}개 보기 <span class="pmore-h">· 자주 나온 ${SUB_HEAD}개 먼저, 나머지는 위 검색</span></button>` : "";
+      return `<div class="pgrp"><div class="pgh ${g.cls}">${g.icon ? g.icon + " " : ""}${g.label}</div><div class="pchips${g.dim === "sub" ? " pgsub" : ""}">${chips}</div>${more}</div>`;
     }).join("");
     body.querySelectorAll(".pchip").forEach(ch => ch.onclick = () => { const d = ch.dataset.dim; F[d] = (F[d] === ch.dataset.k) ? null : ch.dataset.k; render(); });
+    body.querySelectorAll(".pmore").forEach(b => b.onclick = () => { const ch = b.previousElementSibling; const open = ch.classList.toggle("show-tail"); b.textContent = open ? "－ 접기" : `＋ 전체 ${b.dataset.total}개 보기`; });
   }
   function syncPicker() {
     document.querySelectorAll("#pickBody .pchip").forEach(ch => { const on = F[ch.dataset.dim] === ch.dataset.k; ch.classList.toggle("on", on); ch.setAttribute("aria-pressed", on ? "true" : "false"); });
@@ -477,7 +480,9 @@ window.Digest = (function () {
   function _pickClose() { const p = document.getElementById("pickPop"); if (p) p.hidden = true; }
   function _pickFilter(q) {
     q = (q || "").trim().toLowerCase();
-    document.querySelectorAll("#pickBody .pchip").forEach(ch => { ch.style.display = (!q || ch.dataset.k.toLowerCase().includes(q)) ? "" : "none"; });
+    // 빈 검색=인라인 해제(CSS가 머리 노출·꼬리 접힘 제어) · 검색 중=일치하면 inline-flex로 꼬리까지 강제 노출(전체 대상)
+    document.querySelectorAll("#pickBody .pchip").forEach(ch => { ch.style.display = !q ? "" : (ch.dataset.k.toLowerCase().includes(q) ? "inline-flex" : "none"); });
+    document.querySelectorAll("#pickBody .pmore").forEach(b => { b.style.display = q ? "none" : ""; });
     document.querySelectorAll("#pickBody .pgrp").forEach(g => { const any = [...g.querySelectorAll(".pchip")].some(c => c.style.display !== "none"); g.style.display = any ? "" : "none"; });
   }
   function _pickOpen() {
