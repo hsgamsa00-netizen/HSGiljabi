@@ -3,12 +3,12 @@
    전략: index.html=network-first(오프라인 시 캐시) · 그 외 same-origin GET=stale-while-revalidate
    (캐시 즉시 응답 + 백그라운드 갱신 → 버전 범프 없이도 한 번 방문하면 다음 방문에 최신).
    데스크톱(Electron·file://)에서는 등록 자체가 안 되므로 무영향. */
-const CACHE = "hsgiljabi-cache-v0.1.10";
+const CACHE = "hsgiljabi-cache-v0.1.11";
 const PRECACHE = [
   "./", "index.html", "styles.css",
   "cards_data.js", "norm_dict.js", "related.js",
   "kogl.js", "onboarding.js", "digest.js", "dashboard.js", "graphView.js", "analysisTutorial.js", "panelGuide.js", "followAlong.js", "tour.js", "memo.js", "app.js", "browser-shim.js",
-  "favicon.svg", "favicon-32.png", "apple-touch-icon.png", "icon-192.png", "icon-512.png", "manifest.webmanifest"
+  "hs_bi.png", "favicon.svg", "favicon-32.png", "apple-touch-icon.png", "icon-192.png", "icon-512.png", "manifest.webmanifest"
 ];
 
 self.addEventListener("install", (e) => {

@@ -62,7 +62,7 @@ window.Onboarding = (function () {
         </div>
         <div class="oi-companion">📚 <b>감사 길잡이</b>는 감사계획 수립·현장 점검·양정 판단·처분요구서 작성까지, <b>막막한 출발점을 실제 선례와 근거</b>로 채워 줍니다.</div>
         <div class="trust">
-          <div class="trust-mark">${koglMark()}<span class="trust-by">화성시 자체감사 공개자료</span></div>
+          <div class="trust-mark"><span class="hs-bi-wrap"><img class="hs-bi" src="hs_bi.png" alt="화성특례시" /></span>${koglMark()}</div>
           🛡️ <b>본 자료는 화성시가 공개한 자체감사 자료를 바탕으로 제작되었습니다.</b> · 100% 로컬 처리 · 외부 전송 없음<br><span style="font-size:12.5px;color:#5a6b7d">화성시 자체감사 공개자료 · 원문은 <b>화성시 감사 자료</b>에서 확인</span></div>
         <div class="oi-by">🏛 <b>화성특례시 감사관</b> 제작</div>
         <div class="oi-cta"><button class="oi-skip" data-oi="skip" type="button">건너뛰기</button><button class="oi-start" data-oi="follow" type="button">✍️ 사례로 따라 하기 →</button></div>
