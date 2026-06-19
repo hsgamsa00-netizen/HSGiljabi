@@ -206,7 +206,7 @@ window.Digest = (function () {
     if (!g || !g.행위자 || !g.행위) return "";
     const res = nominalizeResult(g.결과);
     let s = `<span class="fm-who">${hl(g.행위자)}</span><span class="fm-a">→</span>`
-      + `<span class="fm-act">${g.대상 ? `<span class="fm-obj">${hl(g.대상)} · </span>` : ""}${hl(g.행위)}</span>`;
+      + `<span class="fm-act">${(g.대상 && !g.행위.includes(g.대상)) ? `<span class="fm-obj">${hl(g.대상)} · </span>` : ""}${hl(g.행위)}</span>`;
     if (res) s += `<span class="fm-a">⇒</span><span class="fm-res">${hl(res)}</span>`;
     return `<div class="fs-mini" aria-label="사건 구조 한 줄">${s}</div>`;
   }
