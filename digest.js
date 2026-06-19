@@ -457,7 +457,7 @@ window.Digest = (function () {
   const PICK_GROUPS = [
     { dim: "crit", cls: "crit", icon: "🔎", label: "중점 점검 비위", fk: "중점점검" },
     { dim: "crime", cls: "crime", icon: "⚖️", label: "형사 연계", fk: "형사연계" },
-    { dim: "sub", cls: "", icon: "", label: "세부 주제", fk: "소주제" },
+    { dim: "sub", cls: "", icon: "", label: "주제 분류", fk: "소주제군" },
   ];
   function buildPicker() {
     const body = document.getElementById("pickBody"); if (!body) return;
@@ -600,7 +600,7 @@ window.Digest = (function () {
     if (F.knd && c.감사종류 !== F.knd) return false;
     if (F.fld && !(c.분야 || []).includes(F.fld)) return false;
     if (F.viol && !(c.위반유형 || []).includes(F.viol)) return false;
-    if (F.sub && !(c.소주제 || []).includes(F.sub)) return false;
+    if (F.sub && !(c.소주제군 || []).includes(F.sub)) return false;
     if (F.crit && !(c.중점점검 || []).includes(F.crit)) return false;
     if (F.crime && !(c.형사연계 || []).includes(F.crime)) return false;
     if (F.yrFrom != null && c.연도) { const y = parseInt(c.연도, 10); if (y < F.yrFrom || y > F.yrTo) return false; }
