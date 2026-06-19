@@ -1,0 +1,7 @@
+# 개발용 — 공개 배포 제외
+_*.py
+_*.wf.js
+*.pt
+vec.js
+.DS_Store
+Thumbs.db
