@@ -4,16 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'">
-<title>화성 감사 길잡이</title>
+<title>화성 자체감사 길잡이</title>
 <meta name="theme-color" content="#2b5b8c">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="apple-mobile-web-app-title" content="화성 감사 길잡이">
+<meta name="apple-mobile-web-app-title" content="화성 자체감사 길잡이">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="stylesheet" href="styles.css?v=0.1.18">
+<link rel="stylesheet" href="styles.css?v=0.1.19">
 <script>try{if(localStorage.getItem("theme_key")!=="light")document.documentElement.setAttribute("data-theme","dark");}catch(e){}</script>
 </head>
 <body>
@@ -21,7 +21,7 @@
 
 <div class="top">
   <div class="in">
-    <div class="brand"><div class="brand-top"><b>화성 감사 길잡이</b><span id="brandSub">· 분석</span></div><div class="brand-src">화성시 자체감사 사례 기반</div></div>
+    <div class="brand"><div class="brand-top"><b>화성 자체감사 길잡이</b><span id="brandSub">· 분석</span></div><div class="brand-src">화성시 자체감사 사례 기반</div></div>
     <div class="tabs" role="tablist" aria-label="화면 전환">
       <button id="tabDash" class="on" data-view="dash" role="tab" aria-selected="true" aria-controls="view-dash">📊 분석</button>
       <button id="tabDigest" data-view="digest" role="tab" aria-selected="false" aria-controls="view-digest">📂 사례 탐색</button>
@@ -280,7 +280,7 @@
 <!-- 정보 -->
 <div class="aboutmodal" id="aboutModal">
   <div class="about-card" role="dialog" aria-modal="true" aria-label="정보 및 출처">
-    <div class="about-h"><div><span class="at">화성 감사 길잡이</span><span class="av">v0.1.0</span></div><button class="ax" id="aboutClose" title="닫기">✕</button></div>
+    <div class="about-h"><div><span class="at">화성 자체감사 길잡이</span><span class="av">v0.1.0</span></div><button class="ax" id="aboutClose" title="닫기">✕</button></div>
     <div class="about-by">🏛 화성특례시 감사관 제작</div>
     <div class="about-desc">화성시 자체감사 결과(처분요구서 등)를 사례 카드로 정리해 착안점·유사 처분례·근거 법령을 빠르게 찾는 <b>개인 업무 참고용</b> 도구입니다.</div>
     <div class="about-desc about-casual">바이브 코딩이란 걸 알게 돼서 만들었습니다. 개선점 제안이나 버그 제보는 언제나 환영입니다.</div>
@@ -303,7 +303,7 @@
       <div class="alh">📑 출처 · 저작권 안내</div>
       <div class="hs-bi-wrap" style="margin:2px 0 9px"><img class="hs-bi" src="hs_bi.png" alt="화성특례시" /></div>
       <div class="kogl-wrap" data-kogl4></div>
-      <p class="kogl-src"><b>출처표시</b> — 본 「화성 감사 길잡이」는 <b>화성시</b>가 공개한 <b>자체감사 결과(처분요구서 등)</b>를 정리한 것으로, 원문은 화성시 감사 자료(원문열람시스템·시청 누리집)에서 확인할 수 있습니다.</p>
+      <p class="kogl-src"><b>출처표시</b> — 본 「화성 자체감사 길잡이」는 <b>화성시</b>가 공개한 <b>자체감사 결과(처분요구서 등)</b>를 정리한 것으로, 원문은 화성시 감사 자료(원문열람시스템·시청 누리집)에서 확인할 수 있습니다.</p>
       <p>각 사례의 <b>원문·최종 판단은 반드시 화성시 감사 자료에서 확인</b>하시기 바랍니다.</p>
       <p>화면의 요지·발췌는 <b>교육·연구·업무 참고 목적의 인용</b>(저작권법 §28)으로, 원저작물의 내용을 <b>인용·참조</b>한 것입니다. <b>개인 업무 참고용·비상업</b>으로만 이용합니다.</p>
       <p class="alnote">관련 법령: 저작권법 §28(공표저작물 인용)·§30(사적이용 복제)·§24-2(공공저작물 자유이용)·§36(번역·개작). ※ 배포 등 사적이용 범위를 벗어날 경우 화성시 감사관과 협의를 권장합니다.</p>
@@ -336,19 +336,19 @@
 </div>
 
 <!-- R0 데이터 분할 로드 — meta(집계·트리) + 카드 6파트(연도 오름차순·병렬 다운로드·증분 캐시) + join -->
-<script src="cards_data.js?v=0.1.18"></script>
-<script src="norm_dict.js?v=0.1.18"></script>
-<script src="related.js?v=0.1.18"></script>
-<script src="kogl.js?v=0.1.18"></script>
-<script src="onboarding.js?v=0.1.18"></script>
-<script src="digest.js?v=0.1.18"></script>
-<script src="graphView.js?v=0.1.18"></script>
-<script src="dashboard.js?v=0.1.18"></script>
-<script src="analysisTutorial.js?v=0.1.18"></script>
-<script src="panelGuide.js?v=0.1.18"></script>
-<script src="followAlong.js?v=0.1.18"></script>
-<script src="tour.js?v=0.1.18"></script>
-<script src="memo.js?v=0.1.18"></script>
-<script src="app.js?v=0.1.18"></script>
+<script src="cards_data.js?v=0.1.19"></script>
+<script src="norm_dict.js?v=0.1.19"></script>
+<script src="related.js?v=0.1.19"></script>
+<script src="kogl.js?v=0.1.19"></script>
+<script src="onboarding.js?v=0.1.19"></script>
+<script src="digest.js?v=0.1.19"></script>
+<script src="graphView.js?v=0.1.19"></script>
+<script src="dashboard.js?v=0.1.19"></script>
+<script src="analysisTutorial.js?v=0.1.19"></script>
+<script src="panelGuide.js?v=0.1.19"></script>
+<script src="followAlong.js?v=0.1.19"></script>
+<script src="tour.js?v=0.1.19"></script>
+<script src="memo.js?v=0.1.19"></script>
+<script src="app.js?v=0.1.19"></script>
 </body>
 </html>

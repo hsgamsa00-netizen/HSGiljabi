@@ -1,6 +1,6 @@
 {
-  "name": "감사 길잡이",
-  "short_name": "감사 길잡이",
+  "name": "화성 자체감사 길잡이",
+  "short_name": "화성 자체감사",
   "description": "화성시 자체감사 사례 검색·분석",
   "lang": "ko",
   "start_url": ".",

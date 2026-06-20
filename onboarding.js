@@ -39,7 +39,7 @@ window.Onboarding = (function () {
     ov.innerHTML = `
       <div class="oi-modal" role="dialog" aria-label="시작 안내">
         <div class="oi-head">
-          <div class="oi-brand">📚 감사 길잡이</div>
+          <div class="oi-brand">📚 화성 자체감사 길잡이</div>
           <div class="oi-title">현장의 막막함이 <b>근거 있는 감사</b>가 되기까지</div>
           <div class="oi-sub">${n.span || "최근 공개분을 중심으로 한 "}화성시 자체감사 자료 <b>${n.doc}</b>건을 분석해 <b>${n.card}</b>장의 사례 카드로 분해 — 검색만 하면 실제 감사 사례의 착안점·선례·법령을 바로 확인합니다</div>
         </div>
