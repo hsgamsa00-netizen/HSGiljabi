@@ -13,7 +13,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="stylesheet" href="styles.css?v=0.1.20">
+<link rel="stylesheet" href="styles.css?v=0.1.21">
 <script>try{if(localStorage.getItem("theme_key")!=="light")document.documentElement.setAttribute("data-theme","dark");}catch(e){}</script>
 </head>
 <body>
@@ -39,15 +39,7 @@
 
 <!-- 설정 패널 -->
 <div class="setpanel" id="setPanel">
-  <h4>⚖️ 법령연동 설정</h4>
-  <p>법제처 OpenAPI <b>OC값</b>을 입력하면 위반법령의 <b>해당 조문</b>을 이 앱 안에서 바로 봅니다. OC는 <a href="https://open.law.go.kr" target="_blank" rel="noopener">open.law.go.kr</a>에서 본인이 직접 무료 발급합니다. <b>기본 미탑재</b> — 이 PC에만 저장됩니다.</p>
-  <input id="ocInput" type="text" placeholder="예: 본인_OC값 (미입력 시 국가법령정보센터로 이동)" autocomplete="off" spellcheck="false" aria-label="법제처 OpenAPI OC값">
-  <div class="setrow">
-    <button class="save" id="ocSave">저장</button>
-    <button id="ocTest">연결 확인</button>
-    <button id="ocClear">지우기</button>
-  </div>
-  <div class="setstat off" id="ocStat">OC 미설정 — 법령 클릭 시 국가법령정보센터로 이동합니다.</div>
+  <h4>🎛 표시 설정</h4>
   <div class="setbold">
     <label><input type="checkbox" id="boldChk"> 위반사실 <b>핵심구 강조(볼드)</b></label>
     <div class="setboldhint">사례의 핵심 위반 구절을 진하게 표시합니다(빌드타임 추출 기준).</div>
@@ -64,6 +56,15 @@
     <label><input type="checkbox" id="darkChk"> 🌙 <b>다크 모드</b></label>
     <div class="setboldhint">화면 전체를 어두운 테마로 표시합니다. 이 PC에만 저장됩니다.</div>
   </div>
+  <h4 style="margin-top:16px;padding-top:13px;border-top:1px solid var(--line)">⚖️ 법령연동 설정</h4>
+  <p>법제처 OpenAPI <b>OC값</b>을 입력하면 위반법령의 <b>해당 조문</b>을 이 앱 안에서 바로 봅니다. OC는 <a href="https://open.law.go.kr" target="_blank" rel="noopener">open.law.go.kr</a>에서 본인이 직접 무료 발급합니다. <b>기본 미탑재</b> — 이 PC에만 저장됩니다.</p>
+  <input id="ocInput" type="text" placeholder="예: 본인_OC값 (미입력 시 국가법령정보센터로 이동)" autocomplete="off" spellcheck="false" aria-label="법제처 OpenAPI OC값">
+  <div class="setrow">
+    <button class="save" id="ocSave">저장</button>
+    <button id="ocTest">연결 확인</button>
+    <button id="ocClear">지우기</button>
+  </div>
+  <div class="setstat off" id="ocStat">OC 미설정 — 법령 클릭 시 국가법령정보센터로 이동합니다.</div>
 </div>
 
 <!-- 개발자 노트 (헤더 📝 → 알려진 문제점 팝업) -->
@@ -337,19 +338,19 @@
 </div>
 
 <!-- R0 데이터 분할 로드 — meta(집계·트리) + 카드 6파트(연도 오름차순·병렬 다운로드·증분 캐시) + join -->
-<script src="cards_data.js?v=0.1.20"></script>
-<script src="norm_dict.js?v=0.1.20"></script>
-<script src="related.js?v=0.1.20"></script>
-<script src="kogl.js?v=0.1.20"></script>
-<script src="onboarding.js?v=0.1.20"></script>
-<script src="digest.js?v=0.1.20"></script>
-<script src="graphView.js?v=0.1.20"></script>
-<script src="dashboard.js?v=0.1.20"></script>
-<script src="analysisTutorial.js?v=0.1.20"></script>
-<script src="panelGuide.js?v=0.1.20"></script>
-<script src="followAlong.js?v=0.1.20"></script>
-<script src="tour.js?v=0.1.20"></script>
-<script src="memo.js?v=0.1.20"></script>
-<script src="app.js?v=0.1.20"></script>
+<script src="cards_data.js?v=0.1.21"></script>
+<script src="norm_dict.js?v=0.1.21"></script>
+<script src="related.js?v=0.1.21"></script>
+<script src="kogl.js?v=0.1.21"></script>
+<script src="onboarding.js?v=0.1.21"></script>
+<script src="digest.js?v=0.1.21"></script>
+<script src="graphView.js?v=0.1.21"></script>
+<script src="dashboard.js?v=0.1.21"></script>
+<script src="analysisTutorial.js?v=0.1.21"></script>
+<script src="panelGuide.js?v=0.1.21"></script>
+<script src="followAlong.js?v=0.1.21"></script>
+<script src="tour.js?v=0.1.21"></script>
+<script src="memo.js?v=0.1.21"></script>
+<script src="app.js?v=0.1.21"></script>
 </body>
 </html>
