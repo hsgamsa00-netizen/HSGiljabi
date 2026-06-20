@@ -676,7 +676,7 @@ window.Digest = (function () {
   function init() {
     const nzDocs = new Set(NZ.map(c => c.srno)).size, csd = ALL.length - NZ.length;
     const bdg = document.getElementById("badge");
-    bdg.innerHTML = `화성 사례 <b>${fmt(NZ.length)}</b> · ${fmt(nzDocs)}건`;
+    bdg.innerHTML = `공개 자체감사 사례 <b>${fmt(NZ.length)}</b> · ${fmt(nzDocs)}건 <span class="badge-i" tabindex="0" role="button" aria-label="수록 기준 안내" title="수록 기준 — 화성시가 공개한 자체감사 결과(처분요구서 등) 기준입니다. 조사·기타 비공개 사안은 포함되지 않습니다.">ⓘ</span>`;
     const lastDt = NZ.reduce((m, c) => (c.공개일 || "") > m ? c.공개일 : m, "");   // 데이터 신선도 고지
     if (lastDt) bdg.title = `화성시 자체감사 처분요구서 기준 — 최신 ${lastDt} 까지 수록`;
     buildFieldGrid();

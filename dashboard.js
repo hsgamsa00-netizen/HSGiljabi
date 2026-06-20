@@ -151,11 +151,16 @@ window.Dashboard = (function () {
     const box = document.getElementById("repBox"); if (!box) return;
     const m = {};
     sub.forEach(c => { const g = c.dupGid; if (!g) return; if (!m[g]) m[g] = { n: 0, t: c.제목, g }; m[g].n++; });
-    const top = Object.values(m).filter(x => x.n >= 5).sort((a, b) => b.n - a.n).slice(0, 12);
+    // 내용상 '사실상 동일'한 묶음 병합(일반 규칙) — 라벨이 달라도 핵심 토큰이 겹치면 합산하고 다음 distinct를 끌어올림
+    const STOP = new Set(["및", "등", "또는", "관련", "그", "외", "건", "에", "대한", "위한", "따른"]);
+    const tokset = t => new Set(String(t || "").replace(/\([^)]*\)/g, " ").split(/[\s·,]+/).filter(w => w.length >= 2 && !STOP.has(w)));
+    const simil = (a, b) => { let i = 0; a.forEach(x => { if (b.has(x)) i++; }); const u = new Set([...a, ...b]).size || 1, j = i / u, mn = Math.min(a.size, b.size) || 1; return j >= 0.6 || (i / mn >= 0.85 && i >= 3 && j >= 0.5); };
+    const merged = []; Object.values(m).filter(x => x.n >= 5).sort((a, b) => b.n - a.n).forEach(c => { const tk = tokset(c.t); let h = null; for (let k = 0; k < merged.length; k++) { if (simil(tk, merged[k]._tk)) { h = merged[k]; break; } } if (h) { h.n += c.n; h.gids.push(c.g); } else merged.push({ n: c.n, t: c.t, g: c.g, gids: [c.g], _tk: tk }); });
+    const top = merged.sort((a, b) => b.n - a.n).slice(0, 12);
     if (!top.length) { box.innerHTML = '<div class="muted" style="font-size:12px;padding:8px">반복 5건 이상 지적이 없습니다(현재 범위).</div>'; return; }
     const max = top[0].n;
-    box.innerHTML = top.map(x => `<div class="reprow" data-gid="${esc(x.g)}" role="button" tabindex="0" title="${esc(x.t)} · ${x.n}건 — 클릭 → 사례"><div class="repl">${esc(x.t.length > 34 ? x.t.slice(0, 34) + "…" : x.t)}</div><div class="reptrack"><i style="width:${Math.round(x.n / max * 100)}%"></i></div><div class="repv">${x.n}건</div></div>`).join("");
-    box.querySelectorAll(".reprow").forEach(el => el.onclick = () => { const g = el.dataset.gid; const list = sub.filter(c => c.dupGid === g); drillTo("🔁 반복 · " + (list[0] ? (list[0].제목.length > 16 ? list[0].제목.slice(0, 16) + "…" : list[0].제목) : ""), list); });
+    box.innerHTML = top.map(x => `<div class="reprow" data-gid="${esc(x.gids.join(","))}" role="button" tabindex="0" title="${esc(x.t)} · ${x.n}건${x.gids.length > 1 ? " (유사 묶음 " + x.gids.length + "종 합산)" : ""} — 클릭 → 사례"><div class="repl">${esc(x.t.length > 34 ? x.t.slice(0, 34) + "…" : x.t)}</div><div class="reptrack"><i style="width:${Math.round(x.n / max * 100)}%"></i></div><div class="repv">${x.n}건</div></div>`).join("");
+    box.querySelectorAll(".reprow").forEach(el => el.onclick = () => { const gids = (el.dataset.gid || "").split(",").filter(Boolean); const list = sub.filter(c => gids.includes(c.dupGid)); drillTo("🔁 반복 · " + (list[0] ? (list[0].제목.length > 16 ? list[0].제목.slice(0, 16) + "…" : list[0].제목) : ""), list); });
   }
   function renderViolSel(sub) {   // 위반유형 건수 막대 = 선택자(클릭 → 그 유형 처분 분포)
     const sel = document.getElementById("violSel");
