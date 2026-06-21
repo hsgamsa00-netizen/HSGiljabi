@@ -61,6 +61,7 @@ window.Onboarding = (function () {
             <div class="oi-cap">감사계획·처분요구서에 그대로</div></div>
         </div>
         <div class="oi-companion">📚 <b>감사 길잡이</b>는 감사계획 수립·현장 점검·양정 판단·처분요구서 작성까지, <b>막막한 출발점을 실제 선례와 근거</b>로 채워 줍니다.</div>
+        <div class="oi-mission">여러 해에 걸쳐 공개된 화성시 자체감사 기록을 한자리에 모아, 찾아보고 비교할 수 있게 정리한 자료입니다. 정리·연결은 자동화가 맡고, <b>판단과 결정은 감사 담당자</b>의 몫입니다.</div>
         <div class="trust">
           <div class="trust-mark"><span class="hs-bi-wrap"><img class="hs-bi" src="hs_bi.png" alt="화성특례시" /></span></div>
           🛡️ <b>본 자료는 화성시가 공개한 자체감사 자료를 바탕으로 제작되었습니다.</b> · 100% 로컬 처리 · 외부 전송 없음<br><span style="font-size:12.5px;color:#5a6b7d">화성시 자체감사 공개자료 · 원문은 <b>화성시 감사 자료</b>에서 확인</span></div>
