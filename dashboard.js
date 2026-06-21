@@ -164,7 +164,9 @@ window.Dashboard = (function () {
   }
   function renderViolSel(sub) {   // 위반유형 건수 막대 = 선택자(클릭 → 그 유형 처분 분포)
     const sel = document.getElementById("violSel");
-    const cnt = {}; sub.forEach(c => (c.위반유형 || []).forEach(v => { if (!String(v).startsWith("(")) cnt[v] = (cnt[v] || 0) + 1; }));
+    const STD = ["계약·조달", "검사·감독", "재정·세입", "보조금·연구비", "인사·복무", "청렴·행위", "인허가·개발", "건설·시설", "문서", "손해·변상", "제도·후속"];   // 통제어휘 11
+    const vclamp = v => { v = String(v); if (STD.includes(v)) return v; const p = STD.find(s => v.startsWith(s)); if (p) return p; const h = STD.find(s => s.split("·").includes(v)); if (h) return h; return "기타"; };   // 비표준(반쪽·다중결합·이탈)→표준/기타 합산(목록 11+기타=12·2열 짝수)
+    const cnt = {}; sub.forEach(c => (c.위반유형 || []).forEach(v => { if (!String(v).startsWith("(")) { const k = vclamp(v); cnt[k] = (cnt[k] || 0) + 1; } }));
     const arr = Object.entries(cnt).sort((a, b) => b[1] - a[1]);
     if (!arr.length) { sel.innerHTML = '<div class="muted" style="font-size:12px;padding:6px">표본 없음</div>'; document.getElementById("yangbox").innerHTML = '<div class="muted" style="font-size:12px;padding:8px">표본 없음</div>'; return; }
     const max = arr[0][1];
