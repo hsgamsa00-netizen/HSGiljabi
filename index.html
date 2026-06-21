@@ -13,7 +13,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="stylesheet" href="styles.css?v=0.1.30">
+<link rel="stylesheet" href="styles.css?v=0.1.31">
 <script>try{if(localStorage.getItem("theme_key")!=="light")document.documentElement.setAttribute("data-theme","dark");}catch(e){}</script>
 </head>
 <body>
@@ -164,7 +164,7 @@
         <span class="clear" id="clear" style="display:none">전체 해제</span>
         <button id="fltBtn" class="fltbtn" type="button" aria-label="필터 열기">⚙ 필터</button>
         <button id="chkBtn" class="cbarbtn" type="button" title="현재 결과의 선례 착안점을 주제 묶음 점검표로">📝 점검표</button>
-        <select id="sortSel" class="subsel sortsel" aria-label="목록 정렬 기준" title="목록 정렬 기준"><option value="new">공개일 최신순</option><option value="old">공개일 오래된순</option><option value="abc">가나다순</option><option value="rand">무작위 탐색</option></select>
+        <select id="sortSel" class="subsel sortsel" aria-label="목록 정렬 기준" title="목록 정렬 기준"><option value="new">최근 공개순</option><option value="old">오래된 공개순</option><option value="abc">가나다순</option><option value="rand">무작위 탐색</option></select>
         <button class="screenhelp" data-help="digest" type="button" title="사례 탐색 사용법 — 예시로 따라보기">❔ 이 화면 사용법</button>
         <button class="prevtgl" id="listHintToggle" type="button" role="switch" aria-checked="true" title="목록 미리보기 — 켜면 제목에 마우스 올릴 때 미리보기, 끄면 미리보기 없이 탐색"><span class="prevtgl-lab">미리보기</span><span class="prevtgl-knob"></span></button>
       </div>
@@ -339,19 +339,19 @@
 </div>
 
 <!-- R0 데이터 분할 로드 — meta(집계·트리) + 카드 6파트(연도 오름차순·병렬 다운로드·증분 캐시) + join -->
-<script src="cards_data.js?v=0.1.30"></script>
-<script src="norm_dict.js?v=0.1.30"></script>
-<script src="related.js?v=0.1.30"></script>
-<script src="kogl.js?v=0.1.30"></script>
-<script src="onboarding.js?v=0.1.30"></script>
-<script src="digest.js?v=0.1.30"></script>
-<script src="graphView.js?v=0.1.30"></script>
-<script src="dashboard.js?v=0.1.30"></script>
-<script src="analysisTutorial.js?v=0.1.30"></script>
-<script src="panelGuide.js?v=0.1.30"></script>
-<script src="followAlong.js?v=0.1.30"></script>
-<script src="tour.js?v=0.1.30"></script>
-<script src="memo.js?v=0.1.30"></script>
-<script src="app.js?v=0.1.30"></script>
+<script src="cards_data.js?v=0.1.31"></script>
+<script src="norm_dict.js?v=0.1.31"></script>
+<script src="related.js?v=0.1.31"></script>
+<script src="kogl.js?v=0.1.31"></script>
+<script src="onboarding.js?v=0.1.31"></script>
+<script src="digest.js?v=0.1.31"></script>
+<script src="graphView.js?v=0.1.31"></script>
+<script src="dashboard.js?v=0.1.31"></script>
+<script src="analysisTutorial.js?v=0.1.31"></script>
+<script src="panelGuide.js?v=0.1.31"></script>
+<script src="followAlong.js?v=0.1.31"></script>
+<script src="tour.js?v=0.1.31"></script>
+<script src="memo.js?v=0.1.31"></script>
+<script src="app.js?v=0.1.31"></script>
 </body>
 </html>
