@@ -96,7 +96,7 @@ window.Dashboard = (function () {
   // ===== 현황 데이터 보드 (중립 집계·언어그래픽·빈칸채움) =====
   function ctxSubset(ctx) { if (ctx === "전체") return C; if (GYE3.includes(ctx)) return C.filter(c => c.기관계열 === ctx); return C.filter(c => (c.분야 || []).includes(ctx)); }
   function yearRow(sub) {   // 연도별 건수 — 최근부터 '연속 밀집(연 50건+)' 연도는 개별 행, 그 이전만 ~YYYY 묶음(데이터 확장 시 자동 펼침)
-    const yc = {}; sub.forEach(c => { const y = parseInt(c.연도, 10); if (y) yc[y] = (yc[y] || 0) + 1; });
+    const yc = {}; sub.forEach(c => { const y = parseInt(c.연도, 10); if (y >= 2000 && y <= 2030) yc[y] = (yc[y] || 0) + 1; });   // 유효연도만
     const ys = Object.keys(yc).map(Number).sort((a, b) => a - b);
     if (!ys.length) return '<div class="muted" style="font-size:12px">표본 없음</div>';
     const last = ys[ys.length - 1];
@@ -311,10 +311,10 @@ window.Dashboard = (function () {
   function init() {
     const docs = new Set(C.map(c => c.srno)).size;
     const flds = new Set(); C.forEach(c => (c.분야 || []).forEach(f => { if (!String(f).startsWith("(")) flds.add(f); }));
-    const yrs = C.map(c => c.연도).filter(Boolean).map(Number);
-    const y0 = Math.min(...yrs) || "", y1 = Math.max(...yrs) || "";
+    const yrs = C.map(c => parseInt(c.연도, 10)).filter(y => y >= 2000 && y <= 2030);   // 유효연도만
+    const y0 = yrs.length ? Math.min(...yrs) : "", y1 = yrs.length ? Math.max(...yrs) : "";
     const rec5 = C.filter(c => { const y = parseInt(c.연도, 10); return y >= 2022 && y <= 2026; }).length;   // 최근 5개년
-    const pre = C.filter(c => { const y = parseInt(c.연도, 10); return y && y <= 2021; }).length;            // 그 이전
+    const pre = C.filter(c => { const y = parseInt(c.연도, 10); return y >= 2000 && y <= 2021; }).length;            // 그 이전
     const violN = Object.keys(facet("위반유형")).length;   // 12 = 통제어휘 11 + 기타
     const yrTip = "화성시가 공개한 자체감사 자료로, 일부 연도는 수록 건수가 적습니다. 표본이 작은 연도는 개별 사례 단위로 참고하십시오.";
     document.getElementById("kpis").innerHTML = "";   // P1: KPI 4개 제거(건수=우측상단 배지·분야/유형=하단 중복) → 기관/분야 선택바가 자리 차지

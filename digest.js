@@ -429,7 +429,8 @@ window.Digest = (function () {
   // ----- 연도 슬라이더 -----
   let MINY, MAXY;
   function buildYearSlider() {
-    const ys = NZ.map(c => parseInt(c.연도, 10)).filter(Boolean);
+    const ys = NZ.map(c => parseInt(c.연도, 10)).filter(y => y >= 2000 && y <= 2030);   // 유효연도만(깨진 연도 슬라이더 오염 방지)
+    if (!ys.length) ys.push(2026);
     MINY = Math.min(...ys); MAXY = Math.max(...ys); F.yrFrom = MINY; F.yrTo = MAXY;
     const box = document.getElementById("yrRange");
     box.innerHTML = `<div class="rtrack"></div><div class="rfill" id="yrFill"></div><input type="range" id="yrLo" min="${MINY}" max="${MAXY}" value="${MINY}" step="1"><input type="range" id="yrHi" min="${MINY}" max="${MAXY}" value="${MAXY}" step="1">`;
