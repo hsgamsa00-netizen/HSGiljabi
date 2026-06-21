@@ -26,8 +26,8 @@ window.Dashboard = (function () {
   const GYE3 = ["읍·면·동", "본청·사업소", "출자·출연기관"];
 
   // 처분 6분류(현황 100% 누적 표시용)
-  const DGRP = [["통보", "tong"], ["주의", "ju"], ["시정", "si"], ["문책", "mun"], ["변상", "bs"], ["기타", "etc"]];   // P2: 경중순 — 행정상(통보·주의·시정) → 엄중(문책·변상) → 기타(색=경중 그룹화)
-  function dgrp(d) { d = Array.isArray(d) ? (d[0] || "") : (d || ""); if (/문책|징계|고발|수사/.test(d)) return "문책"; if (/변상/.test(d)) return "변상"; if (/주의/.test(d)) return "주의"; if (/통보/.test(d)) return "통보"; if (/시정|개선|권고/.test(d)) return "시정"; return "기타"; }
+  const DGRP = [["통보", "tong"], ["주의", "ju"], ["시정", "si"], ["징계·문책", "mun"], ["변상", "bs"], ["기타", "etc"]];   // P2: 경중순 — 행정상(통보·주의·시정) → 엄중(문책·변상) → 기타(색=경중 그룹화)
+  function dgrp(d) { d = Array.isArray(d) ? (d[0] || "") : (d || ""); if (/문책|징계|고발|수사/.test(d)) return "징계·문책"; if (/변상/.test(d)) return "변상"; if (/주의/.test(d)) return "주의"; if (/통보/.test(d)) return "통보"; if (/시정|개선|권고/.test(d)) return "시정"; return "기타"; }
   function stack100(sub) {
     const cc = {}; sub.forEach(c => dispListOf(c).forEach(d => { const g = dgrp(d); cc[g] = (cc[g] || 0) + 1; }));
     const tot = sub.length || 1; let segs = "", leg = "";
@@ -123,12 +123,12 @@ window.Dashboard = (function () {
       dispBlock = GYE3.map(g => {
         const ss = C.filter(c => c.기관계열 === g && (_fld === "전체" || (c.분야 || []).includes(_fld)));
         if (!ss.length) return `<div class="gyerow"><div class="gyel">${g} <span class="muted">0</span></div><div class="stack" style="opacity:.35"></div><div class="gyeem"></div></div>`;
-        const s = stack100(ss); const em = Math.round(((s.cc["문책"] || 0) + (s.cc["변상"] || 0)) / s.tot * 100);
+        const s = stack100(ss); const em = Math.round(((s.cc["징계·문책"] || 0) + (s.cc["변상"] || 0)) / s.tot * 100);
         return `<div class="gyerow" data-gye="${g}"><div class="gyel">${g} <span class="muted">${fmt(ss.length)}</span></div><div class="stack">${s.segs}</div><div class="gyeem" title="문책+변상 비율">엄중 ${em}%</div></div>`;
       }).join("") + `<div class="leg">${stack100(sub).leg}</div>`;
     } else {   // 특정 기관 → 교차 부분집합 단일 분포
       const s = stack100(sub);
-      dispBlock = sub.length ? `<div class="gyerow"><div class="gyel">${esc(ctxLabel())} <span class="muted">${fmt(sub.length)}</span></div><div class="stack">${s.segs}</div><div class="gyeem" title="문책+변상 비율">엄중 ${Math.round(((s.cc["문책"] || 0) + (s.cc["변상"] || 0)) / s.tot * 100)}%</div></div><div class="leg">${s.leg}</div>` : '<div class="muted" style="font-size:12px">표본 없음</div>';
+      dispBlock = sub.length ? `<div class="gyerow"><div class="gyel">${esc(ctxLabel())} <span class="muted">${fmt(sub.length)}</span></div><div class="stack">${s.segs}</div><div class="gyeem" title="문책+변상 비율">엄중 ${Math.round(((s.cc["징계·문책"] || 0) + (s.cc["변상"] || 0)) / s.tot * 100)}%</div></div><div class="leg">${s.leg}</div>` : '<div class="muted" style="font-size:12px">표본 없음</div>';
     }
     const guard = (!all && sub.length > 0 && sub.length < 25) ? `<div class="board-guard">⚠️ 「${esc(ctxLabel())}」 교차 표본 <b>${fmt(sub.length)}</b>건 — 적어 참고용입니다. <b class="bg-drill" data-drill-cross>개별 사례 보기 →</b></div>` : "";
     const whoBox = document.getElementById("whoBox");
