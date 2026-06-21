@@ -594,7 +594,7 @@ window.Digest = (function () {
     return [...new Set([t, g.canon.toLowerCase(), ...g.variants.map(v => v.toLowerCase())])];
   }
   function qMatch(c, p) { const hay = hayOf(c); return p.ph.every(t => hit(c, hay, t)) && p.inc.every(t => expandTok(t).some(x => hit(c, hay, x))) && !p.exc.some(t => expandTok(t).some(x => hit(c, hay, x))); }
-  function pubKey(c) { const m = String(c.공개일 || "").match(/(\d{4})\D*(\d{1,2})?\D*(\d{1,2})?/); if (m) return (+m[1]) * 10000 + (+(m[2] || 6)) * 100 + (+(m[3] || 0)); const y = parseInt(c.연도, 10); return y ? y * 10000 + 600 : 0; }
+  function pubKey(c) { const m = String(c.공개일 || "").match(/(\d{4})\D*(\d{1,2})?/); if (m) return (+m[1]) * 100 + (+(m[2] || 6)); const y = parseInt(c.연도, 10); return y ? y * 100 + 6 : 0; }   // ★월단위 — 같은 달 내 셔플 순서 유지(다양성)
   function match(c) {
     if (F.gye && c.기관계열 !== F.gye) return false;
     if (F.disp && !dispListOf(c).includes(F.disp)) return false;   // 복수 처분 중 하나라도 일치하면 통과(처분요구 기준)
@@ -648,8 +648,8 @@ window.Digest = (function () {
     });
     document.getElementById("clear").style.display = (cr.length || F.q) ? "inline" : "none";
     const res = ALL.filter(match);
-    if (SORT === "new") res.sort((a, b) => (pubKey(b) - pubKey(a)) || String(a.id).localeCompare(String(b.id)));   // 동일 공개일 동점 → id로 결정적 정렬(새로고침 일관)
-    else if (SORT === "old") res.sort((a, b) => (pubKey(a) - pubKey(b)) || String(a.id).localeCompare(String(b.id)));
+    if (SORT === "new") res.sort((a, b) => pubKey(b) - pubKey(a));   // 월단위·같은 달 내 셔플 유지
+    else if (SORT === "old") res.sort((a, b) => pubKey(a) - pubKey(b));
     else if (SORT === "abc") res.sort((a, b) => (a.제목 || "").localeCompare(b.제목 || "", "ko"));
     // rand: 로드 시 셔플된 원 배열 순서 유지(무작위 탐색)
     document.getElementById("nres").textContent = fmt(res.length);
