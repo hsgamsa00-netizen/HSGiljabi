@@ -221,7 +221,7 @@ html[data-theme="dark"] .pmore-h{color:#6b7a88}
 .case .ct{font-size:16px;font-weight:700;line-height:1.4;margin-bottom:5px}
 .case .cs{font-size:14px;color:var(--muted);line-height:1.5;margin-bottom:9px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 /* P1: 목록 카드 사건구조 한 줄(요지 자리 대체) — 누가 → 무엇을 ⇒ 결과 */
-.fs-mini{display:flex;flex-wrap:wrap;align-items:center;gap:4px 5px;margin-bottom:9px;font-size:var(--text-sm);line-height:1.5;word-break:keep-all}
+.fs-mini{display:flex;flex-wrap:wrap;align-items:center;gap:4px 5px;margin:7px 0 9px;padding-top:7px;border-top:1px solid var(--accent-line);font-size:var(--text-sm);line-height:1.5;word-break:keep-all}   /* 제목과 은근한 구분 — 옅은 헤어라인+여백(박스 아님) */
 .fs-mini .fm-who{font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:1px 7px}
 .fs-mini .fm-act{color:var(--ink)}
 .fs-mini .fm-obj{color:var(--muted2)}
