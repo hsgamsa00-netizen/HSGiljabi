@@ -1484,7 +1484,8 @@ button:disabled,.btn:disabled,.docbtn:disabled,.copybtn:disabled,.setrow button:
 .hfilt .ctxrow-2 .dchip{font-size:13px;padding:4px 11px}
 
 /* 기관 = 세그먼트 컨트롤(붙은 토글·라디오 느낌·안 깨짐) */
-.ctxseg{display:inline-flex;border:1px solid var(--accent-line);border-radius:8px;overflow:hidden;flex:none}
+.ctxseg{display:inline-flex;border:1px solid var(--accent-line);border-radius:8px;overflow-x:auto;overflow-y:hidden;flex:0 1 auto;min-width:0;max-width:100%;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.ctxseg::-webkit-scrollbar{height:4px}.ctxseg::-webkit-scrollbar-thumb{background:var(--line);border-radius:2px}.ctxseg::-webkit-scrollbar-track{background:transparent}
 .ctxseg .dchip.seg{border:0;border-left:1px solid var(--line);border-radius:0;background:transparent;font-size:13px;font-weight:500;padding:5px 14px;color:var(--ink);outline:none;white-space:nowrap}
 .ctxseg .dchip.seg:first-child{border-left:0}
 .ctxseg .dchip.seg:hover{background:var(--accent-soft)}
