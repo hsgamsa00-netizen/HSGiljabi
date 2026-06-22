@@ -229,21 +229,21 @@ window.Digest = (function () {
       ${(c.형사연계 && c.형사연계.length) ? `<div class="crimebadge" title="감사기관이 수사기관에 고발·수사의뢰한 사건입니다. 주처분(징계·통보 등)과 별개로 부가될 수 있어 별도로 식별합니다. 처분 수위·범죄 성립 판단과는 무관하며 원문을 확인하세요.">⚖️ 형사 연계 · ${c.형사연계.map(esc).join(" · ")}</div>` : ""}
       ${c.요지 ? `<div class="dt-sec prime"><h4>요지 〈화성시 처분요구서 인용·발췌〉</h4><div class="body">${fmtBody(c.요지)}</div></div>` : ""}
       ${c.위반사실 ? `<div class="dt-sec prime"><h4>위반사실 〈발췌〉</h4><div class="body">${fmtBody(c.위반사실, c.핵심구)}</div></div>` : ""}
-      ${c.원인 ? `<div class="dt-sec prime"><h4>원인 · 통제미비점</h4><div class="body">${fmtBody(c.원인)}</div></div>` : ""}
+      ${c.원인 ? `<div class="dt-sec prime"><h4>원인 · 통제미비점 <span class="muted" style="font-weight:400;font-size:11px">〈요약·정리〉</span></h4><div class="body">${fmtBody(c.원인)}</div></div>` : ""}
       <div class="dt-sec facts"><h4>출처 · 원문</h4>
-        <div class="body" style="font-size:12px;color:var(--muted)">${esc(c.감사명 || "")}<br>공개일 ${c.공개일 || ""} · 감사종류 ${esc(c.감사종류 || "")}${c.종류추정 ? `<span class="infer" title="처분요구서와 확정 교차대조 전 — 추정 분류입니다(시청 누리집에 해당 감사 결과가 공개되지 않아 미확정).">˚추정</span>` : ""} · 순번 ${c.srno}${isCsd ? " · (CSD 원문·검색전용)" : ""}</div>
+        <div class="body" style="font-size:12px;color:var(--muted)">${esc(c.감사명 || "")}<br>공개일 ${c.공개일 || ""} · 감사종류 ${esc(c.감사종류 || "")}${c.종류추정 ? `<span class="infer" title="처분요구서와 확정 교차대조 전 — 추정 분류입니다(시청 누리집에 해당 감사 결과가 공개되지 않아 미확정).">˚추정</span>` : ""} · 순번 ${c.srno}${(c.근거페이지 && c.근거페이지.length) ? ` · 근거 ${c.근거페이지.map(esc).join(", ")}` : ""}${isCsd ? " · (CSD 원문·검색전용)" : ""}</div>
         <div class="docbtns"><button class="docbtn js-bai">🔎 원문 열람</button><button class="docbtn js-memo">📝 메모에 담기</button><button class="copybtn js-cite" style="margin-top:0">📋 인용 복사</button></div>
         <div style="font-size:11px;color:var(--muted);margin-top:7px">사례 길잡이는 ‘요지(참고)’ — 처분 결정 시 원문 확인</div></div>
       ${(c.위반법령 && c.위반법령.length) ? `<div class="dt-sec"><h4>위반 법령</h4>${lawsHtml(c.위반법령)}</div>` : ""}
       ${amt ? `<div class="dt-sec"><h4>금액</h4><div class="amt">${esc(amt)}</div></div>` : ""}
-      ${(c.착안점 && c.착안점.length) ? `<div class="dt-sec"><h4>감사 착안점</h4>${c.착안점.map(a => `<div class="aki">${esc(a)}</div>`).join("")}</div>` : ""}
-      ${c.적신호 ? `<div class="dt-sec redflag"><h4>🚩 적신호 — 이런 정황이면 점검할 지점</h4><div class="body">${fmtBody(neutralRedflag(c.적신호))}</div></div>` : ""}
+      ${(c.착안점 && c.착안점.length) ? `<div class="dt-sec"><h4>감사 착안점 <span class="muted" style="font-weight:400;font-size:11px">〈AI 분석·참고〉</span></h4>${c.착안점.map(a => `<div class="aki">${esc(a)}</div>`).join("")}</div>` : ""}
+      ${c.적신호 ? `<div class="dt-sec redflag"><h4>🚩 적신호 <span class="muted" style="font-weight:400;font-size:11px">〈AI 생성·참고〉</span> — 이런 정황이면 점검할 지점</h4><div class="body">${fmtBody(neutralRedflag(c.적신호))}</div></div>` : ""}
       ${(typeof c.비지적 === "string" && c.비지적.trim().length > 8) ? `<div class="dt-sec nonflag"><h4>✅ 비지적 · 참고 〈처분요구서 발췌〉</h4><div class="body">${fmtBody(c.비지적)}</div></div>` : ""}
       ${(() => {   // 설계서 #3: 유사 선례(의미 유사·빌드타임 사전계산·런타임 LLM0). related.js 없으면 미표시(폴백).
         const rel = (window.RELATED && window.RELATED[c.id]) || [];
         if (!rel.length) return "";
         const rows = rel.map(r => { const x = ALL.find(k => k.id === r.id); if (!x) return ""; const [c2, t2] = dispClass(x.처분종류); return `<button class="relrow" type="button" data-rid="${x.id}" title="유사도 ${Math.round((r.score||0)*100)}%"><span class="relt">${esc(x.제목 || "(제목없음)")}</span><span class="reld disp ${c2}">${esc(t2)}</span><span class="rely">${x.연도 || ""}</span></button>`; }).filter(Boolean).join("");
-        return rows ? `<div class="dt-sec related"><h4>🔗 유사 선례 <span class="muted" style="font-weight:400;font-size:11px">의미 유사 · 사전 분석</span></h4><div class="rell">${rows}</div></div>` : "";
+        return rows ? `<div class="dt-sec related"><h4>🔗 유사 선례 <span class="muted" style="font-weight:400;font-size:11px">의미 유사 · AI 사전 분석</span></h4><div class="rell">${rows}</div></div>` : "";
       })()}
       ${(() => {   // 꼬리 계층(피로 S4): 근거페이지·같은 보고서·출처 → 접이(details) — 펼친 내부는 기존 구조 그대로
         const sib = ALL.filter(x => x.srno === c.srno && x.id !== c.id);
