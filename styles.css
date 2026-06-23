@@ -349,7 +349,7 @@ html[data-theme="dark"] .rb-q,html[data-theme="dark"] .rb-q2,html[data-theme="da
 .modebtn.on{background:var(--accent);color:#fff;border-color:var(--accent)}
 .modebtn small{display:block;font-size:11px;font-weight:500;opacity:.8;margin-top:1px}
 .cols{display:grid;grid-template-columns:1fr 400px;gap:18px;align-items:start}   /* start: 짧은 칼럼이 빈 박스로 늘어나지 않게(반론은 전체 폭 하단으로 분리) */
-@media(min-width:1081px){   /* H: 착안점 찾기 좌·우 칼럼 하단 끝선 정렬 — 같은 높이 + 긴 목록 내부 스크롤 */
+@media(min-width:1081px) and (min-height:820px){   /* H: 착안점 찾기 좌·우 칼럼 정렬·내부스크롤 — 짧은 창(높이<820px)에선 적용 안 함(자연 흐름 → cbr 패널이 cols 밖으로 흘러 반론·검증과 겹치는 현상 방지) */
   #dashActive.searched .cols{align-items:stretch;max-height:calc(100vh - 150px)}
   #dashActive.searched .cols>div{display:flex;flex-direction:column;min-width:0}
   #dashActive.searched .cols .panel.cbr{flex:1;min-height:0;overflow:auto}
