@@ -12,6 +12,7 @@
   let _curView = "dash";
   function show(v) {
     _curView = v;
+    document.documentElement.setAttribute("data-view", v);   // CSS에서 탭별 헤더 조정용(탐색탭=검색바 확장)
     Object.keys(views).forEach(k => { views[k].classList.toggle("on", k === v); tabs[k].classList.toggle("on", k === v); tabs[k].setAttribute("aria-selected", k === v ? "true" : "false"); });
     brandSub.textContent = SUB[v] || "";
     search.style.visibility = (v === "digest") ? "visible" : "hidden";
