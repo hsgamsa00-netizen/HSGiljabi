@@ -215,3 +215,42 @@
   } catch (e) {}
   show("dash");   // 첫 실행 = 분석(현황) — 워크플로 순서(분석→탐색→내 사례함)
 })();
+
+/* P3 접근성: 모달 포커스 관리 — 열림 시 다이얼로그로 포커스 이동·Tab 트랩·닫힘 시 트리거로 복원 */
+(function () {
+  var lastFocus = null;
+  var FSEL = 'button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
+  var IDS = ['devNote', 'conceptModal', 'caseModal', 'aboutModal', 'lawModal'];
+  function focusables(box) {
+    return Array.prototype.slice.call(box.querySelectorAll(FSEL)).filter(function (x) { return x.offsetParent !== null; });
+  }
+  function onOpen(el) {
+    lastFocus = document.activeElement;
+    var dlg = el.querySelector('[role="dialog"]') || el;
+    var fs = focusables(dlg);
+    if (fs.length) { fs[0].focus(); }
+    else if (dlg.focus) { dlg.setAttribute('tabindex', '-1'); dlg.focus(); }
+    el._trap = function (e) {
+      if (e.key !== 'Tab') return;
+      var items = focusables(dlg); if (!items.length) return;
+      var a = items[0], b = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === a) { e.preventDefault(); b.focus(); }
+      else if (!e.shiftKey && document.activeElement === b) { e.preventDefault(); a.focus(); }
+    };
+    el.addEventListener('keydown', el._trap);
+  }
+  function onClose(el) {
+    if (el._trap) { el.removeEventListener('keydown', el._trap); el._trap = null; }
+    if (lastFocus && lastFocus.focus) { try { lastFocus.focus(); } catch (e) {} }
+    lastFocus = null;
+  }
+  IDS.forEach(function (id) {
+    var el = document.getElementById(id); if (!el) return;
+    el._wasOn = el.classList.contains('on');
+    new MutationObserver(function () {
+      var on = el.classList.contains('on');
+      if (on && !el._wasOn) { el._wasOn = true; onOpen(el); }
+      else if (!on && el._wasOn) { el._wasOn = false; onClose(el); }
+    }).observe(el, { attributes: true, attributeFilter: ['class'] });
+  });
+})();

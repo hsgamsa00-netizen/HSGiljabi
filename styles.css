@@ -1194,7 +1194,7 @@ html[data-theme="dark"] .trust{background:var(--accent-soft)}
 html[data-theme="dark"] .rangebox .rtrack{background:var(--line)}
 html[data-theme="dark"] .at-dot{background:#3a4654}
 html[data-theme="dark"] .memo-cdel:hover{background:#3a1f1f;color:#e3857c}
-html[data-theme="dark"] .seg-etc{background:#5a6470}
+html[data-theme="dark"] .seg-go{background:#7e2f29}html[data-theme="dark"] .seg-mun{background:#93433c}html[data-theme="dark"] .seg-bs{background:#a35a52}html[data-theme="dark"] .seg-tong{background:#3c4a5a}html[data-theme="dark"] .seg-si{background:#445468}html[data-theme="dark"] .seg-ju{background:#4d5e72}html[data-theme="dark"] .seg-gae{background:#56687c}html[data-theme="dark"] .seg-gw{background:#5f7388}html[data-theme="dark"] .seg-etc{background:#5a6470}
 /* 텍스트(하드코딩 진회색·남색) → ink/muted */
 html[data-theme="dark"] .sec,html[data-theme="dark"] .kpi-main .l,html[data-theme="dark"] .bsec .bsub,html[data-theme="dark"] .ptakeaway,html[data-theme="dark"] .at-lead,html[data-theme="dark"] .at-qs,html[data-theme="dark"] .beat .bd,html[data-theme="dark"] .rb-cap,html[data-theme="dark"] .bcap,html[data-theme="dark"] .oi-companion,html[data-theme="dark"] .trust,html[data-theme="dark"] .rb-prec,html[data-theme="dark"] .cbr-hint{color:var(--ink)}
 html[data-theme="dark"] .kpihint,html[data-theme="dark"] .memo-cd,html[data-theme="dark"] .memo-emptysub,html[data-theme="dark"] .dst span,html[data-theme="dark"] .fa-real .fri,html[data-theme="dark"] .at-pill,html[data-theme="dark"] .at-btn.ghost,html[data-theme="dark"] .keepstar{color:var(--muted)}
