@@ -110,7 +110,7 @@
   const IS_WEB = !(window.api && window.api.law);
   if (IS_WEB && setPanel && !document.getElementById("setWebNote")) {
     const w = document.createElement("div"); w.id = "setWebNote"; w.className = "setweb";
-    w.innerHTML = "🌐 <b>웹(비설치)판 안내</b> — 이 버전은 브라우저 보안정책상 <b>OC 연동(인앱 조문 조회·연결 확인)이 지원되지 않습니다</b>. 법령을 누르면 <b>국가법령정보센터</b>로 이동합니다. 인앱 조문 팝업은 <b>설치판</b>에서 사용하세요.";
+    w.innerHTML = `<svg class="ic" aria-hidden="true"><use href="#ic-globe"></use></svg> <b>웹(비설치)판 안내</b> — 이 버전은 브라우저 보안정책상 <b>OC 연동(인앱 조문 조회·연결 확인)이 지원되지 않습니다</b>. 법령을 누르면 <b>국가법령정보센터</b>로 이동합니다. 인앱 조문 팝업은 <b>설치판</b>에서 사용하세요.`;
     const p = setPanel.querySelector("p"); if (p) p.insertAdjacentElement("afterend", w); else setPanel.appendChild(w);
   }
   function setStat(cls, txt) { ocStat.className = "setstat " + cls; ocStat.textContent = txt; }
@@ -155,7 +155,7 @@
 
   document.addEventListener("click", e => { if (setPanel.classList.contains("on") && !setPanel.contains(e.target) && e.target.id !== "setBtn") setPanel.classList.remove("on"); });
 
-  // ----- 통합 도움말 (헤더 ❓ 드롭다운 + 각 화면 「❔ 이 화면 사용법」) -----
+  // ----- 통합 도움말 (헤더 드롭다운 + 각 화면 「이 화면 사용법」) -----
   const helpMenu = document.getElementById("helpMenu");
   function runHelp(topic) {
     if (helpMenu) helpMenu.classList.remove("on");
@@ -176,7 +176,7 @@
   document.querySelectorAll(".screenhelp[data-help]").forEach(b => b.onclick = () => runHelp(b.dataset.help));
   document.addEventListener("click", e => { if (helpMenu.classList.contains("on") && !helpMenu.contains(e.target) && e.target.id !== "helpBtn") helpMenu.classList.remove("on"); });
 
-  // ----- 개발자 노트 (헤더 📝 → 알려진 문제점 팝업) -----
+  // ----- 개발자 노트 (헤더 → 알려진 문제점 팝업) -----
   const devNote = document.getElementById("devNote"), devNoteBtn = document.getElementById("devNoteBtn");
   if (devNote && devNoteBtn) {
     devNoteBtn.onclick = (e) => { e.stopPropagation(); setPanel.classList.remove("on"); helpMenu.classList.remove("on"); devNote.classList.add("on"); };
@@ -184,7 +184,7 @@
     devNote.addEventListener("click", e => { if (e.target === devNote) devNote.classList.remove("on"); });
   }
 
-  // ----- 분류 기준 한눈에(개념 정립 모달) — 도움말 📐 / 주제로찾기 ⓘ에서 열림 -----
+  // ----- 분류 기준 한눈에(개념 정립 모달) — 도움말 / 주제로찾기 ⓘ에서 열림 -----
   const conceptModal = document.getElementById("conceptModal");
   if (conceptModal) {
     const ccx = document.getElementById("conceptClose"); if (ccx) ccx.onclick = () => conceptModal.classList.remove("on");

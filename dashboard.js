@@ -130,7 +130,7 @@ window.Dashboard = (function () {
       const s = stack100(sub);
       dispBlock = sub.length ? `<div class="gyerow"><div class="gyel">${esc(ctxLabel())} <span class="muted">${fmt(sub.length)}</span></div><div class="stack">${s.segs}</div><div class="gyeem" title="문책+변상 비율">엄중 ${Math.round(((s.cc["징계·문책"] || 0) + (s.cc["변상"] || 0)) / s.tot * 100)}%</div></div><div class="leg">${s.leg}</div>` : '<div class="muted" style="font-size:12px">표본 없음</div>';
     }
-    const guard = (!all && sub.length > 0 && sub.length < 25) ? `<div class="board-guard">⚠️ 「${esc(ctxLabel())}」 교차 표본 <b>${fmt(sub.length)}</b>건 — 적어 참고용입니다. <b class="bg-drill" data-drill-cross>개별 사례 보기 →</b></div>` : "";
+    const guard = (!all && sub.length > 0 && sub.length < 25) ? `<div class="board-guard"><svg class="ic" aria-hidden="true"><use href="#ic-alert-triangle"></use></svg> 「${esc(ctxLabel())}」 교차 표본 <b>${fmt(sub.length)}</b>건 — 적어 참고용입니다. <b class="bg-drill" data-drill-cross>개별 사례 보기 →</b></div>` : "";
     const whoBox = document.getElementById("whoBox");
     whoBox.innerHTML = guard + dispBlock;
     whoBox.querySelectorAll("[data-gye]").forEach(el => el.onclick = () => window.gotoDigest({ gye: el.dataset.gye, fld: _fld !== "전체" ? _fld : null }));   // 누가 → 탐색(연계 재설계 2026-06-13)
@@ -160,7 +160,7 @@ window.Dashboard = (function () {
     if (!top.length) { box.innerHTML = '<div class="muted" style="font-size:12px;padding:8px">반복 5건 이상 지적이 없습니다(현재 범위).</div>'; return; }
     const max = top[0].n;
     box.innerHTML = top.map(x => `<div class="reprow" data-gid="${esc(x.gids.join(","))}" role="button" tabindex="0" title="${esc(x.t)} · ${x.n}건${x.gids.length > 1 ? " (유사 묶음 " + x.gids.length + "종 합산)" : ""} — 클릭 → 사례"><div class="repl">${esc(x.t.length > 34 ? x.t.slice(0, 34) + "…" : x.t)}</div><div class="reptrack"><i style="width:${Math.round(x.n / max * 100)}%"></i></div><div class="repv">${x.n}건</div></div>`).join("");
-    box.querySelectorAll(".reprow").forEach(el => el.onclick = () => { const gids = (el.dataset.gid || "").split(",").filter(Boolean); const list = sub.filter(c => gids.includes(c.dupGid)); drillTo("🔁 반복 · " + (list[0] ? (list[0].제목.length > 16 ? list[0].제목.slice(0, 16) + "…" : list[0].제목) : ""), list); });
+    box.querySelectorAll(".reprow").forEach(el => el.onclick = () => { const gids = (el.dataset.gid || "").split(",").filter(Boolean); const list = sub.filter(c => gids.includes(c.dupGid)); drillTo("반복 · " + (list[0] ? (list[0].제목.length > 16 ? list[0].제목.slice(0, 16) + "…" : list[0].제목) : ""), list); });
   }
   function renderViolSel(sub) {   // 위반유형 건수 막대 = 선택자(클릭 → 그 유형 처분 분포)
     const sel = document.getElementById("violSel");
@@ -205,15 +205,15 @@ window.Dashboard = (function () {
     const askHtml = ask.map(([t, tag]) => `<div class="rb-q">${esc(String(t))} <span class="rb-tag">(${tag})</span></div>`).join("") || '<div class="muted" style="font-size:12px">점검 항목 정보 없음</div>';
     const co = coOccur(viol).slice(0, 2); const coP = co.map(x => `${esc(x.w)} ${Math.round(x.n / Nv * 100)}%`).join(" · ");
     return `<details class="rebut">
-      <summary class="rebut-h">🔍 반론·검증 <span class="muted">「${esc(viol)}」 ${fmt(Nv)}건</span> <span class="rebut-open">펼쳐 보기</span></summary>
+      <summary class="rebut-h"><svg class="ic" aria-hidden="true"><use href="#ic-search"></use></svg> 반론·검증 <span class="muted">「${esc(viol)}」 ${fmt(Nv)}건</span> <span class="rebut-open">펼쳐 보기</span></summary>
       ${sparse ? `<div class="rb-abst">표본이 적어(징계 ${heavy}·행정상 ${light}건) 반대 선례 분포가 갈립니다 — <b>판단 보류</b>. 아래는 참고용입니다.</div>` : ""}
-      <div class="rb-sec dev"><div class="rb-t">😈 다중관점 <span class="rb-role">— 반대 선례로 상대 반론 미리 점검 (악마의 대변인 — 반대편 자처·약점 점검)</span></div>
+      <div class="rb-sec dev"><div class="rb-t"><svg class="ic" aria-hidden="true"><use href="#ic-messages"></use></svg> 다중관점 <span class="rb-role">— 반대 선례로 상대 반론 미리 점검 (악마의 대변인 — 반대편 자처·약점 점검)</span></div>
         <div class="stack">${segs}</div>
         <div class="rb-obs">관측 — ${mit.length ? `면책·참작 선례 <b>${mit.length}건</b> · ` : ""}행정상 처분(주의·통보·시정) <b>${lP}%</b> · 징계계열 <b>${hP}%</b>.</div>${mitHtml}
         <div class="rb-cap">→ 상대의 <b>면책요건·참작사유·시효</b>를 미리 확인하셨습니까? <span class="muted">(가중·감경 양방향 · 결론은 감사자 판단)</span></div></div>
-      <div class="rb-sec ask"><div class="rb-t">🤔 되묻기 <span class="rb-role">— 선례 적신호·착안점을 점검 질문으로</span></div>${askHtml}
+      <div class="rb-sec ask"><div class="rb-t"><svg class="ic" aria-hidden="true"><use href="#ic-help-circle"></use></svg> 되묻기 <span class="rb-role">— 선례 적신호·착안점을 점검 질문으로</span></div>${askHtml}
         <div class="rb-cap2">선례의 적신호·착안점을 점검 항목으로 재구성(원문 아님).</div></div>
-      <div class="rb-sec crit"><div class="rb-t">📝 비평 <span class="rb-role">— 양정 위치·동반 누락 점검</span></div>
+      <div class="rb-sec crit"><div class="rb-t"><svg class="ic" aria-hidden="true"><use href="#ic-square-pen"></use></svg> 비평 <span class="rb-role">— 양정 위치·동반 누락 점검</span></div>
         <div class="rb-q2">양정 — 본 유형은 행정상 처분 ${lP}%, 징계계열 ${hP}%. 가중·감경 <b>어느 쪽이든 사실로 뒷받침</b>해야 형평·반론에 대응됩니다(가중=고의·반복·금액, 감경=면책·참작 근거).</div>
         ${co.length ? `<div class="rb-q2">동반 누락 — 「${esc(viol)}」은 선례상 <b>${coP}</b> 동반. 누락된 동반 위반을 함께 검토했습니까?</div>` : ""}</div>
       <div class="rebut-foot">집계 ${fmt(Nv)}건 · <b>데이터 인용 환각 0</b> / 입력→위반유형 매칭 자동(확인 권장) · LLM 대체가 아니라 반대 방향 선례·분포·정형 질문의 인출입니다.</div>
@@ -253,10 +253,10 @@ window.Dashboard = (function () {
     const aks = Object.entries(akCnt).sort((a, b) => b[1] - a[1]).slice(0, 8);
     const rfCnt = {}; top.forEach(c => { const r = neutralRedflag(String(c.적신호 || "").trim()); if (r) rfCnt[r] = (rfCnt[r] || 0) + 1; });   // 적신호 빈도 집계(변형 통합)
     const rfs = Object.entries(rfCnt).sort((a, b) => b[1] - a[1]);
-    const warn = top.length < 5 ? `<div class="cbr-warn">⚠️ 유사 사례 ${top.length}건 — 표본이 적어 참고용입니다.</div>` : "";
+    const warn = top.length < 5 ? `<div class="cbr-warn"><svg class="ic" aria-hidden="true"><use href="#ic-alert-triangle"></use></svg> 유사 사례 ${top.length}건 — 표본이 적어 참고용입니다.</div>` : "";
     const rfCol = rfs.length
-      ? `<div class="cbr-lab">🚩 함께 점검할 적신호 (빈도순)</div>${rfs.slice(0, Math.max(8, aks.length)).map(([r, n]) => `<div class="rfitem">${esc(r)}${n > 1 ? ` <span class="muted">(${n})</span>` : ""}</div>`).join("")}`
-      : `<div class="cbr-lab">🚩 적신호</div><div class="muted" style="font-size:12px">적신호 정보 없음</div>`;
+      ? `<div class="cbr-lab"><svg class="ic" aria-hidden="true"><use href="#ic-flag"></use></svg> 함께 점검할 적신호 (빈도순)</div>${rfs.slice(0, Math.max(8, aks.length)).map(([r, n]) => `<div class="rfitem">${esc(r)}${n > 1 ? ` <span class="muted">(${n})</span>` : ""}</div>`).join("")}`
+      : `<div class="cbr-lab"><svg class="ic" aria-hidden="true"><use href="#ic-flag"></use></svg> 적신호</div><div class="muted" style="font-size:12px">적신호 정보 없음</div>`;
     // 파생 요약(좌측 빈 공간 활용) — 선례 처분 분포 + 자주 적용된 위반법령
     const _dc = {}; top.forEach(c => dispListOf(c).forEach(d => { _dc[d] = (_dc[d] || 0) + 1; }));
     const _dtot = Object.values(_dc).reduce((a, b) => a + b, 0) || 1;
@@ -267,9 +267,9 @@ window.Dashboard = (function () {
     const _lc = {}; top.forEach(c => (Array.isArray(c.위반법령) ? c.위반법령 : (c.위반법령 ? [c.위반법령] : [])).forEach(l => { const k = String(l).replace(/\s*제?\s*\d.*$/, "").trim(); if (k && k.length > 1) _lc[k] = (_lc[k] || 0) + 1; }));
     const _laws = Object.entries(_lc).sort((a, b) => b[1] - a[1]).slice(0, 5);
     const extra = `<div class="cbr-extra">`
-      + `<div class="cbr-lab">📊 선례 처분 분포 <span class="muted">처분요구 ${fmt(_dtot)}건 · 문책 이상 ${Math.round(_hard / _dtot * 100)}%</span></div>`
+      + `<div class="cbr-lab"><svg class="ic" aria-hidden="true"><use href="#ic-chart-bar"></use></svg> 선례 처분 분포 <span class="muted">처분요구 ${fmt(_dtot)}건 · 문책 이상 ${Math.round(_hard / _dtot * 100)}%</span></div>`
       + `<div class="stack">${_dseg}</div><div class="leg">${_dleg}</div>`
-      + (_laws.length ? `<div class="cbr-lab" style="margin-top:11px">⚖️ 자주 적용된 위반법령</div><div class="cbr-exlaw">${_laws.map(([l, n]) => `<span title="${esc(l)}">${esc(l)} <b>${n}</b></span>`).join("")}</div>` : "")
+      + (_laws.length ? `<div class="cbr-lab" style="margin-top:11px"><svg class="ic" aria-hidden="true"><use href="#ic-scale"></use></svg> 자주 적용된 위반법령</div><div class="cbr-exlaw">${_laws.map(([l, n]) => `<span title="${esc(l)}">${esc(l)} <b>${n}</b></span>`).join("")}</div>` : "")
       + `</div>`;
     out.innerHTML = `<div class="cbr-grid">
         <div class="cbr-col"><div class="cbr-head">유사 선례 <b>${fmt(top.length)}</b>건 <span class="muted">종합 — 공통 착안점·적신호</span></div>${warn}<div class="cbr-lab">공통 착안점 (빈도순)</div>${aks.length ? aks.map(([a, n]) => `<div class="aki">${esc(a)}${n > 1 ? ` <span class="muted">(${n})</span>` : ""}</div>`).join("") : '<div class="muted" style="font-size:12px">착안점 정보 없음</div>'}</div>
@@ -298,7 +298,7 @@ window.Dashboard = (function () {
     const mun = (cc["징계·문책요구"] || 0) + (cc["고발"] || 0), hardp = Math.round(mun / tot * 100);
     const ncase = sub.length;   // 선례(사례) 수 — 처분요구 합계(tot)와 구분(복수 처분 시 tot>ncase)
     document.getElementById("yangbox").innerHTML = `<div class="mdstep"><span class="stepn">2</span>어떻게 — 「${esc(v)}」의 처분 분포 <span class="bhint" title="선택 위반유형 · 처분요구 기준 — 한 사례에 복수 처분이 있으면 각 처분을 따로 셉니다(자체감사 매뉴얼의 처분요구별 건수 산정).">ⓘ</span></div><div class="stack">${segs}</div><div class="leg">${leg}</div>
-      <div class="yint">📊 <b>${esc(v)}</b> 선례 <b>${fmt(ncase)}</b>건 · 처분요구 <b>${fmt(tot)}</b>건 중 문책 이상 <b>${hardp}%</b> <button class="yview" data-v="${esc(v)}">→ 이 유형 선례 ${fmt(ncase)}건 보기</button></div>`;
+      <div class="yint"><svg class="ic" aria-hidden="true"><use href="#ic-chart-bar"></use></svg> <b>${esc(v)}</b> 선례 <b>${fmt(ncase)}</b>건 · 처분요구 <b>${fmt(tot)}</b>건 중 문책 이상 <b>${hardp}%</b> <button class="yview" data-v="${esc(v)}">→ 이 유형 선례 ${fmt(ncase)}건 보기</button></div>`;
     const btn = document.querySelector(".yview"); if (btn) btn.onclick = () => drillTo(`양정 · ${v}`, sub);
   }
 
@@ -359,7 +359,7 @@ window.Dashboard = (function () {
     // CBR(능동)
     const cbrBtn = document.getElementById("cbrBtn"), cbrInput = document.getElementById("cbrInput");
     if (cbrBtn && cbrInput) { cbrBtn.onclick = () => renderCbr(cbrInput.value); cbrInput.onkeydown = e => { if (e.key === "Enter") renderCbr(cbrInput.value); }; }
-    const START_CARD = '<div class="cbr-empty"><div class="cbr-emt">🔎 상황·키워드로 유사 선례를 찾습니다</div><div class="cbr-emd">검색창에 <b>자유롭게 입력</b>하거나, 아래 예시를 누르거나, <b>📂 주제로 찾기</b>에서 고르세요.</div><div class="cbr-egs"><span class="cbr-eglab">예시</span><button class="cbr-eg" type="button" data-q="수의계약 분할 발주">수의계약 분할 발주</button><button class="cbr-eg" type="button" data-q="보조금 정산 자부담 증빙">보조금 자부담 증빙</button><button class="cbr-eg" type="button" data-q="인허가 처리기준 위반">인허가 처리기준</button></div><div class="cbr-egmore">— 이 3개는 <b>예시일 뿐</b>입니다. 어떤 상황·키워드든 직접 입력하거나 <b>📂 주제로 찾기</b>(수십 개 주제)에서 고를 수 있습니다.</div></div>';
+    const START_CARD = `<div class="cbr-empty"><div class="cbr-emt"><svg class="ic" aria-hidden="true"><use href="#ic-search"></use></svg> 상황·키워드로 유사 선례를 찾습니다</div><div class="cbr-emd">검색창에 <b>자유롭게 입력</b>하거나, 아래 예시를 누르거나, <b><svg class="ic" aria-hidden="true"><use href="#ic-folder"></use></svg> 주제로 찾기</b>에서 고르세요.</div><div class="cbr-egs"><span class="cbr-eglab">예시</span><button class="cbr-eg" type="button" data-q="수의계약 분할 발주">수의계약 분할 발주</button><button class="cbr-eg" type="button" data-q="보조금 정산 자부담 증빙">보조금 자부담 증빙</button><button class="cbr-eg" type="button" data-q="인허가 처리기준 위반">인허가 처리기준</button></div><div class="cbr-egmore">— 이 3개는 <b>예시일 뿐</b>입니다. 어떤 상황·키워드든 직접 입력하거나 <b><svg class="ic" aria-hidden="true"><use href="#ic-folder"></use></svg> 주제로 찾기</b>(수십 개 주제)에서 고를 수 있습니다.</div></div>`;
     { const rb = document.getElementById("cbrReset"); if (rb) rb.onclick = () => { if (cbrInput) cbrInput.value = ""; const o = document.getElementById("cbrOut"); if (o) o.innerHTML = START_CARD; const _da = document.getElementById("dashActive"); if (_da) _da.classList.remove("searched"); clearDrill(true); window.scrollTo({ top: 0, behavior: "smooth" }); }; }   // ↺ 처음으로(완전 초기화 → 시작 카드·우측 패널 숨김)
     { const o = document.getElementById("cbrOut"); if (o && (!o.firstElementChild || o.querySelector(".cbr-empty"))) o.innerHTML = START_CARD; }   // P1: 초기 시작 카드(예시칩)
     { const o = document.getElementById("cbrOut"); if (o && !o._egWired) { o._egWired = 1; o.addEventListener("click", e => { const b = e.target.closest && e.target.closest(".cbr-eg"); if (b) { if (cbrInput) cbrInput.value = b.dataset.q; renderCbr(b.dataset.q); } }); } }   // 예시칩 클릭 → 검색

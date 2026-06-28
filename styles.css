@@ -3,7 +3,7 @@
 @font-face{font-family:"Pretendard GOV";font-style:normal;font-weight:700;font-display:swap;src:url("fonts/PretendardGOV-Bold.woff2") format("woff2")}
 /* ===== 디자인 토큰 (단일 소스) ===== */
 :root{
-  --bg:#f4f5f6;--card:#fff;--ink:#1e2124;--muted:#5b636c;--line:#e6e8ea;  /* KRDS Grayscale 정렬(gray-5/90/50/10) */
+  --bg:#f4f5f6;--card:#fff;--ink:#1e2124;--muted:#5b636c;--line:#e6e8ea;--soft:#eef1f4;--line-strong:#cdd1d5;  /* KRDS Grayscale 정렬(gray-5/90/50/10) */
   --accent:#0054A6;--accent-soft:#eaf1f9;--accent-line:#bcd2e8;  /* 화성특례시 공식 블루로 승격 */
   --hs:#F36F21;--hs-soft:#fdeee4;  /* 화성특례시 오렌지 — 정체성 포인트(데이터 영역 금지) */
   --good:#267337;--good-soft:#e7f4ea;--warn:#8a5c00;--warn-soft:#fdf4e3;
@@ -23,18 +23,18 @@
 *{box-sizing:border-box}
 html{height:100%}body{min-height:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard GOV","Pretendard","Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}  /* 전역: 한글 어절 단위 줄바꿈(음절 중간 끊김 차단)·긴 토큰만 예외 분할(상속) */
-.tag{font-size:12px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);padding:2px 9px;border-radius:6px;font-weight:700;display:inline-block}
+.tag{font-size:12px;color:var(--muted);background:var(--soft);border:1px solid var(--line);padding:2px 9px;border-radius:6px;font-weight:700;display:inline-block}
 .tag.n{color:var(--muted);background:#f1f3f6;border-color:var(--line)}
 .badge-i{font-size:10px;color:var(--muted);cursor:help;margin-left:2px;font-weight:400}  /* 수록 기준 ⓘ */
 .alscope{background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:8px;padding:7px 10px}  /* 정보·출처 패널 수록 범위 안내 */
 .tag.g{color:var(--good);background:var(--good-soft);border-color:#cfe7df}
 .muted{color:var(--muted)}
 .disp{font-size:11px;padding:1px 8px;border-radius:6px;font-weight:700;border:1px solid}
-.disp.ju{color:var(--warn);background:var(--warn-soft);border-color:#f3e2bd}
-.disp.tong{color:var(--accent);background:var(--accent-soft);border-color:var(--accent-line)}
-.disp.mun{color:var(--bad);background:var(--bad-soft);border-color:#f0cccc}
-.disp.bs{color:#6b4ea1;background:#f1ecfb;border-color:#ddd0f2}
-.disp.etc{color:var(--muted);background:#f1f3f6;border-color:var(--line)}
+.disp.ju{color:var(--sev-admin);background:var(--sev-admin-soft);border-color:var(--sev-admin-line)}
+.disp.tong{color:var(--sev-admin);background:var(--sev-admin-soft);border-color:var(--sev-admin-line)}
+.disp.mun{color:var(--sev-grave);background:var(--sev-grave-soft);border-color:var(--sev-grave-line)}
+.disp.bs{color:var(--sev-grave);background:var(--sev-grave-soft);border-color:var(--sev-grave-line)}
+.disp.etc{color:var(--sev-etc);background:var(--sev-etc-soft);border-color:var(--sev-etc-line)}
 .vt{font-size:11px;color:var(--muted);background:#f1f3f6;border:1px solid var(--line);padding:1px 7px;border-radius:6px}
 .subtag{font-size:10px;font-weight:700;color:#2e7d68;background:#e7f3ef;border:1px solid #c5e3da;padding:1px 7px;border-radius:6px}
 .subsel{width:100%;font-size:13px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);cursor:pointer;outline:none}
@@ -72,7 +72,7 @@ html[data-theme="dark"] .relrow{background:#1b2330;border-color:#33405a}
 html[data-theme="dark"] .relrow:hover{background:#212d3e}
 /* 주제·표식 통합 팝오버(중점점검·형사연계·세부주제) */
 .pickwrap{position:relative}
-.pickbtn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13px;font-weight:700;padding:8px 11px;border:1px solid var(--accent-line);border-radius:8px;background:#fff;color:var(--ink);cursor:pointer;outline:none}
+.pickbtn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13px;font-weight:700;padding:8px 11px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);cursor:pointer;outline:none}
 .pickbtn:hover{border-color:var(--accent)}
 .pickbtn.on{background:var(--accent-soft);border-color:var(--accent)}
 .pickbtn .ph{color:var(--muted);font-weight:500}
@@ -147,7 +147,7 @@ html[data-theme="dark"] .pmore-h{color:#6b7a88}
 .devnotebtn .dndot{width:6px;height:6px;border-radius:50%;background:var(--warn);flex:0 0 auto}
 .dnmodal{position:fixed;inset:0;background:rgba(15,23,34,.5);display:none;align-items:center;justify-content:center;z-index:95;padding:30px}
 .dnmodal.on{display:flex}
-.dn-card{background:var(--card);border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,.45);width:min(600px,94vw);overflow:hidden}
+.dn-card{background:var(--card);border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,.45);width:min(600px,94vw);max-height:calc(100vh - 60px);overflow-y:auto;overflow-x:hidden}
 .dn-bar{height:4px;background:var(--accent)}
 .dn-body{padding:16px 20px 18px}
 .dn-head{display:flex;align-items:center;gap:8px;margin-bottom:2px}
@@ -244,7 +244,7 @@ html[data-theme="dark"] .pmore-h{color:#6b7a88}
 .aki{display:flex;gap:8px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:14px;line-height:1.6}   /* 적신호와 폰트·행리듬 통일(같은 섹션 동일 폰트) */
 .aki:last-child{border-bottom:0}.aki::before{content:"▸";color:var(--accent);flex:none}
 .srcbar{font-size:13px;color:var(--muted);background:#f7f9fb;border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-top:10px;line-height:1.55}
-.copybtn{font-size:12px;font-weight:700;color:var(--accent);background:#fff;border:1px solid var(--accent-line);border-radius:8px;padding:5px 11px;cursor:pointer;margin-top:8px}
+.copybtn{font-size:12px;font-weight:700;color:var(--ink);background:var(--soft);border:1px solid var(--line);border-bottom:2px solid var(--line-strong);border-radius:8px;padding:5px 11px;cursor:pointer;margin-top:8px}
 .amt{font-size:15px;font-weight:700;color:var(--bad)}
 /* 법령연동 */
 .lawwrap{display:flex;flex-direction:column;gap:6px}
@@ -770,8 +770,8 @@ html[data-theme="dark"] .oi-companion .oi-mission{color:#a9bcd2}
 .keepbtn:hover,.widebtn:hover{border-color:var(--accent);color:var(--accent)}
 .keepbtn.on{color:#e0a500;border-color:#f0d68a;background:#fffbe9}
 .docbtns{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-.docbtn{font-size:12px;font-weight:700;border-radius:8px;padding:6px 11px;cursor:pointer;border:1px solid var(--accent-line);background:#fff;color:var(--accent);text-decoration:none;display:inline-block}
-.docbtn:hover{background:var(--accent-soft)}
+.docbtn{font-size:12px;font-weight:700;border-radius:8px;padding:6px 11px;cursor:pointer;border:1px solid var(--line);border-bottom:2px solid var(--line-strong);background:var(--soft);color:var(--ink);text-decoration:none;display:inline-block}
+.docbtn:hover{filter:brightness(.96)}
 /* 법령 조문 팝업 모달(B2) */
 .lawmodal{position:fixed;inset:0;background:rgba(15,23,34,.45);display:none;align-items:center;justify-content:center;z-index:90;padding:24px}
 .lawmodal.on{display:flex}
@@ -806,7 +806,7 @@ html[data-theme="dark"] .oi-companion .oi-mission{color:#a9bcd2}
 /* 정보 모달 */
 .aboutmodal{position:fixed;inset:0;background:rgba(15,23,34,.5);display:none;align-items:center;justify-content:center;z-index:95;padding:30px}
 .aboutmodal.on{display:flex}
-.about-card{background:#fff;border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,.45);width:min(460px,94vw);overflow:hidden}
+.about-card{background:#fff;border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,.45);width:min(460px,94vw);max-height:calc(100vh - 60px);overflow-y:auto;overflow-x:hidden}
 .about-card::before{content:"";display:block;height:4px;background:linear-gradient(90deg,var(--accent),#3f7cb8,var(--good))}
 .about-h{padding:18px 22px 8px;display:flex;align-items:center;justify-content:space-between}
 .about-h .at{font-size:17px;font-weight:700}.about-h .av{font-size:12px;color:var(--muted);margin-left:6px}
@@ -1164,11 +1164,13 @@ html[data-theme="dark"] .casebody .lawpill{background:transparent;border-color:#
    토큰 재정의로 var() 기반 다수 처리 + 하드코딩 표면/텍스트/배지 override.
    원색 지양 기조 유지: 채도 낮춘 다크 톤. KOGL 공식 마크(.kogl-card)는 변형금지=흰색 유지. */
 html[data-theme="dark"]{
-  --bg:#0f141b; --card:#1a212b; --soft:#232d39; --ink:#e4e9f0; --muted:#9aa6b4; --line:#2c3643;
+  --bg:#0f141b; --card:#1a212b; --soft:#232d39; --ink:#e4e9f0; --muted:#9aa6b4; --line:#2c3643; --line-strong:#3a4654;
   --accent:#4e9be0; --accent-soft:#1d2c3c; --accent-line:#39536f; --hs:#FF8542; --hs-soft:#3a2418;  /* 화성 블루(다크 톤업)+오렌지 */
   --good:#5cba9b; --good-soft:#143029; --warn:#d8aa42; --warn-soft:#2c2513;
   --bad:#e3857c; --bad-soft:#341f1f; --muted2:#7f8b99;
   --sev-grave:#e3938b; --sev-grave-soft:#3a2422; --sev-grave-line:#5a3a36;
+  --sev-admin:#9fb1c2; --sev-admin-soft:#222c3a; --sev-admin-line:#3a4858;
+  --sev-etc:#9aa6b4; --sev-etc-soft:#232d39; --sev-etc-line:#39434f;
   --shadow:0 1px 2px rgba(0,0,0,.5),0 8px 22px rgba(0,0,0,.5);
   color-scheme:dark;
 }
@@ -1217,7 +1219,7 @@ html[data-theme="dark"] .pchip{color:var(--ink);border-color:var(--line)}html[da
 html[data-theme="dark"] .pchip:hover{border-color:var(--accent-line)}
 html[data-theme="dark"] .lawpill{color:#bcabe3;background:#221d32;border-color:#3c3257}
 html[data-theme="dark"] .lawpill:hover{background:#2c2540;border-color:#4d4170}
-html[data-theme="dark"] .coblock,html[data-theme="dark"] .disp.bs{color:#bcabe3;background:#1f1b2c;border-color:#3a3154}
+html[data-theme="dark"] .coblock{color:#bcabe3;background:#1f1b2c;border-color:#3a3154}
 html[data-theme="dark"] .coblock .coh,html[data-theme="dark"] .corow .cobadge{color:#bcabe3}
 html[data-theme="dark"] .corow .cobadge{background:var(--card);border-color:#3a3154}
 html[data-theme="dark"] .corow{border-top-color:#2e2842}
@@ -1225,9 +1227,9 @@ html[data-theme="dark"] .board-guard{color:#d8b878;background:#2b2513;border-col
 html[data-theme="dark"] .cbr-col.rf{background:var(--warn-soft)}
 html[data-theme="dark"] .rfitem{color:#d8b878;border-top-color:#473d20}
 /* disp/badge 테두리(연한 색) → 다크 톤 */
-html[data-theme="dark"] .disp.ju,html[data-theme="dark"] .hb.mi,html[data-theme="dark"] .cbr-col.rf,html[data-theme="dark"] .rb-sec.ask,html[data-theme="dark"] .cbr-warn,html[data-theme="dark"] .rb-abst{border-color:#473d20}
-html[data-theme="dark"] .disp.mun,html[data-theme="dark"] .hb.hi,html[data-theme="dark"] .setstat.err{border-color:#4d2e2e}
-html[data-theme="dark"] .disp.tong{border-color:var(--accent-line)}
+html[data-theme="dark"] .hb.mi,html[data-theme="dark"] .cbr-col.rf,html[data-theme="dark"] .rb-sec.ask,html[data-theme="dark"] .cbr-warn,html[data-theme="dark"] .rb-abst{border-color:#473d20}
+html[data-theme="dark"] .hb.hi,html[data-theme="dark"] .setstat.err{border-color:#4d2e2e}
+/* disp.tong 다크=--sev-admin */
 html[data-theme="dark"] .tag.g,html[data-theme="dark"] .pill.pg,html[data-theme="dark"] .ocjo,html[data-theme="dark"] .hb.lo,html[data-theme="dark"] .setstat.onc{border-color:#235047}
 /* 차트 막대(비활성 회색) */
 html[data-theme="dark"] .bar .track>i,html[data-theme="dark"] .vbar .vtrack>i{background:#46535f}
@@ -1515,3 +1517,8 @@ button:disabled,.btn:disabled,.docbtn:disabled,.copybtn:disabled,.setrow button:
 .loadmore:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
 .lm-sub{text-align:center;color:var(--muted);font-size:12px;margin-top:8px}
 .lm-done{padding:12px 8px 26px}
+/* Lucide 아이콘 */
+.ic{width:1.05em;height:1.05em;display:inline-block;vertical-align:-.16em;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;fill:none;flex:none}
+/* P0-2: 키보드 포커스 halo */
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible,.docbtn:focus-visible,.copybtn:focus-visible,.keepstar:focus-visible,.fchip:focus-visible,.dchip:focus-visible,.pchip:focus-visible,.vchip:focus-visible,.subsel:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(0,84,166,.5)}
+.case:focus-visible,.relrow:focus-visible,.sditem:focus-visible,.tile:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}

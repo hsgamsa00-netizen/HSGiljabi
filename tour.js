@@ -7,7 +7,7 @@ window.ScreenGuide = (function () {
 
   const SETS = {
     dash: [
-      { tab: "tabDash", pane: "board", sel: ".dsubtabs", title: "분석은 두 화면", desc: "📋 현황(데이터로 보는 공개 사례) · 🔎 착안점 찾기. 현황은 데이터를 6하원칙(누가·언제·어디서·무엇을·어떻게·왜) 순서로 조망합니다." },
+      { tab: "tabDash", pane: "board", sel: ".dsubtabs", title: "분석은 두 화면", desc: `<svg class="ic" aria-hidden="true"><use href="#ic-clipboard-list"></use></svg> 현황(데이터로 보는 공개 사례) · <svg class="ic" aria-hidden="true"><use href="#ic-search"></use></svg> 착안점 찾기. 현황은 데이터를 6하원칙(누가·언제·어디서·무엇을·어떻게·왜) 순서로 조망합니다.` },
       { tab: "tabDash", pane: "board", sel: "#ctxSel", title: "기관 × 분야 필터", desc: "기관계열·분야를 각각 골라(교차) 그 맥락으로 아래 전 섹션을 재집계합니다." },
       { tab: "tabDash", pane: "board", sel: "#whoBox", title: "누가 — 기관계열별 비교", desc: "중앙·공공기관·지자체의 규모와 처분 강도(구성비 100%). 아래 ‘특화 위반유형’을 펼치면 계열별로 평균보다 많은 유형을 봅니다. 막대 클릭 → 사례." },
       { tab: "tabDash", pane: "board", sel: "#yearBox", title: "언제 — 연도별 사례 카드 수", desc: "최근연도 순(2026→). 처분요구서 1건이 사례 1건입니다(문서 수 = 사례 수). 막대를 누르면 그 연도 사례가 우측 ‘관련 사례’에 나옵니다." },
@@ -19,13 +19,13 @@ window.ScreenGuide = (function () {
     digest: [
       { tab: "tabDigest", sel: "#fldGrid", title: "분야로 좁히기", desc: "큰 버튼이 감사 분야. 누르면 위반유형이 펼쳐지고 목록이 그 범위로 좁혀집니다." },
       { tab: "tabDigest", sel: "#q", title: "검색", desc: "제목·요지·법령·감사명을 한 번에 검색합니다." },
-      { tab: "tabDigest", sel: "#pickBtn", title: "주제·표식 필터", desc: "한 곳에서 🔎중점 점검 비위·⚖️형사 연계·세부 주제(채용·수의계약 등)를 검색·선택해 거릅니다." },
+      { tab: "tabDigest", sel: "#pickBtn", title: "주제·표식 필터", desc: `한 곳에서 <svg class="ic" aria-hidden="true"><use href="#ic-search"></use></svg>중점 점검 비위·<svg class="ic" aria-hidden="true"><use href="#ic-scale"></use></svg>형사 연계·세부 주제(채용·수의계약 등)를 검색·선택해 거릅니다.` },
       { tab: "tabDigest", sel: "#f_gye", title: "기관계열·연도·처분 필터", desc: "좌측 필터로 더 좁힙니다(연도는 공개일 기준)." },
       { tab: "tabDigest", sel: "#list", title: "사례 목록", desc: "검색·필터 결과가 목록으로. 사례를 누르면 <b>우측</b>에 상세가 열립니다." },
       { tab: "tabDigest", sel: "#detail", title: "우측 상세 패널 · 단축키", desc: "위반사실·근거법령·근거 페이지·착안점·적신호가 여기에. 법령을 누르면 조문 팝업. 우상단 <b>☆ 내 사례함 담기(단축키 S)</b> · <b>⤢ 넓게 보기(단축키 W)</b>." }
     ],
     keep: [
-      { tab: "tabKeep", sel: "#tabKeep", title: "⭐ 내 사례함", desc: "사례 목록·상세에서 ☆를 누르면 담아 둔 사례가 여기 모입니다(개수 제한 없음)." },
+      { tab: "tabKeep", sel: "#tabKeep", title: `<svg class="ic" aria-hidden="true"><use href="#ic-star"></use></svg> 내 사례함`, desc: "사례 목록·상세에서 ☆를 누르면 담아 둔 사례가 여기 모입니다(개수 제한 없음)." },
       { tab: "tabKeep", sel: "#keepList", title: "모아 보기", desc: "담은 선례를 한곳에서 다시 봅니다. 클릭 → 상세. 이 기기에만 저장(외부 전송 없음)." }
     ]
   };

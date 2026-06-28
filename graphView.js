@@ -117,7 +117,7 @@ window.GraphView = (function () {
     modal = document.createElement("div");
     modal.id = "gvModal"; modal.className = "gvmodal";
     modal.innerHTML = `<div class="gv-card">
-      <div class="gv-h"><b>🔗 적발 관계망</b><span class="gv-sub gv-crumb"></span>
+      <div class="gv-h"><b><svg class="ic" aria-hidden="true"><use href="#ic-link"></use></svg> 적발 관계망</b><span class="gv-sub gv-crumb"></span>
         <button class="gv-reset" type="button" title="전체 분야망으로">⤾ 전체</button><button class="gv-x" type="button" title="닫기">✕</button></div>
       <div class="gv-body"><div class="gv-graph"></div><div class="gv-side"></div></div></div>`;
     document.body.appendChild(modal);
@@ -242,9 +242,9 @@ window.GraphView = (function () {
     for (const c of cases) { for (const a of (c.착안점 || [])) { const t = String(a).replace(/\s+/g, " ").trim(); if (t.length >= 10 && !seen.has(t)) { seen.add(t); aki.push({ t, id: c.id }); if (aki.length >= 6) break; } } if (aki.length >= 6) break; }
     const nb = neighborsOf(sel, 2).slice(0, 8);
     side.innerHTML = `<div class="gv-st"><b>${esc(sel)}</b><span class="gv-meta">선례 ${fmt(s.n)}건 · 최근 2년 ${s.n ? Math.round(s.recent * 100 / s.n) : 0}%</span></div>
-      <div class="gv-actions"><button class="gv-center" type="button">🎯 이 주제 중심으로</button><button class="gv-search" type="button" title="착안점 찾기 검색으로 보내기(보조)">⌕ 검색</button></div>
-      <p class="gv-lab">대표 착안점 — 📝 메모 · ★ 사례함 · ↗ 상세</p>
-      ${aki.map(a => `<div class="gv-row" data-id="${esc(a.id)}"><span class="gv-rt">${esc(a.t)}</span><button class="gv-memo" type="button" title="메모에 담기">📝</button><button class="gv-star${D().isKept && D().isKept(a.id) ? " on" : ""}" type="button" title="내 사례함">${D().isKept && D().isKept(a.id) ? "★" : "☆"}</button><button class="gv-go" type="button" title="상세">↗</button></div>`).join("") || '<p class="gv-lab">착안점 정보 부족</p>'}
+      <div class="gv-actions"><button class="gv-center" type="button"><svg class="ic" aria-hidden="true"><use href="#ic-target"></use></svg> 이 주제 중심으로</button><button class="gv-search" type="button" title="착안점 찾기 검색으로 보내기(보조)"><svg class="ic" aria-hidden="true"><use href="#ic-search"></use></svg> 검색</button></div>
+      <p class="gv-lab">대표 착안점 — <svg class="ic" aria-hidden="true"><use href="#ic-square-pen"></use></svg> 메모 · ★ 사례함 · ↗ 상세</p>
+      ${aki.map(a => `<div class="gv-row" data-id="${esc(a.id)}"><span class="gv-rt">${esc(a.t)}</span><button class="gv-memo" type="button" title="메모에 담기"><svg class="ic" aria-hidden="true"><use href="#ic-square-pen"></use></svg></button><button class="gv-star${D().isKept && D().isKept(a.id) ? " on" : ""}" type="button" title="내 사례함">${D().isKept && D().isKept(a.id) ? "★" : "☆"}</button><button class="gv-go" type="button" title="상세">↗</button></div>`).join("") || '<p class="gv-lab">착안점 정보 부족</p>'}
       <p class="gv-lab">함께 적발된 주제 — 클릭=동시 사례</p>
       <div class="gv-nbs">${nb.map(x => `<button class="gv-nb" type="button" data-a="${esc(sel)}" data-b="${esc(x.k)}">${esc(x.k)} <b>${fmt(x.w)}</b></button>`).join("") || '<span class="gv-lab">없음</span>'}</div>`;
     side.querySelector(".gv-center").onclick = () => { mode = { type: "sub", center: sel }; draw(); };

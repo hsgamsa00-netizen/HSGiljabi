@@ -1,5 +1,5 @@
 "use strict";
-/* 📝 메모 — 현장 의견·착안점을 저장하는 노트(이 PC에만·localStorage·망분리).
+/* 메모 — 현장 의견·착안점을 저장하는 노트(이 PC에만·localStorage·망분리).
    목록형: 제목(첫 줄)·미리보기·날짜로 관리. 클릭하면 펼쳐서 편집(자동저장). '비슷한 사례 찾기'는 보조 기능. */
 window.Memo = (function () {
   const KEY = "memos";
@@ -34,15 +34,15 @@ window.Memo = (function () {
           <div class="memo-savedhint" data-id="${m.id}">✓ 자동 저장됨</div>
           <div class="memo-actions">
             <button class="memo-done" data-id="${m.id}">✓ 저장·접기</button>
-            <button class="memo-find" data-id="${m.id}" title="이 메모와 비슷한 감사사례 찾기">🔎 비슷한 사례</button>
-            <button class="memo-del" data-id="${m.id}" title="이 메모 삭제">🗑</button>
+            <button class="memo-find" data-id="${m.id}" title="이 메모와 비슷한 감사사례 찾기"><svg class="ic" aria-hidden="true"><use href="#ic-search"></use></svg> 비슷한 사례</button>
+            <button class="memo-del" data-id="${m.id}" title="이 메모 삭제"><svg class="ic" aria-hidden="true"><use href="#ic-trash"></use></svg></button>
           </div></div>`;
       }
       return `<div class="memo-card" data-id="${m.id}">
-        <button class="memo-cdel" data-id="${m.id}" title="이 메모 삭제">🗑</button>
+        <button class="memo-cdel" data-id="${m.id}" title="이 메모 삭제"><svg class="ic" aria-hidden="true"><use href="#ic-trash"></use></svg></button>
         <div class="memo-ct">${esc(titleOf(m))}</div>
         ${previewOf(m) ? `<div class="memo-cp">${esc(previewOf(m))}</div>` : ""}
-        <div class="memo-cd">🕘 ${fmtDate(m.ts)}</div>
+        <div class="memo-cd"><svg class="ic" aria-hidden="true"><use href="#ic-clock"></use></svg> ${fmtDate(m.ts)}</div>
       </div>`;
     }).join("");
 

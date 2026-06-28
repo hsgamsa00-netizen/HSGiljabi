@@ -55,7 +55,7 @@ window.Digest = (function () {
     const chips = (arr, n) => arr.slice(0, n).map(([k, v]) => `<span class="kstat">${esc(k)} <b>${v}</b></span>`).join("") || "—";
     const dc = {}; list.forEach(c => dispListOf(c).forEach(d => { dc[d] = (dc[d] || 0) + 1; }));   // 처분요구 기준(복수 각각 집계)
     const dchips = Object.entries(dc).sort((a, b) => b[1] - a[1]).slice(0, 4).map(([k, v]) => `<span class="kstat">${esc(k)} <b>${v}</b></span>`).join("") || "—";
-    return `<div class="keepstats"><div class="kshead">📊 담은 사례 경향 <span class="muted">총 ${list.length}건 — 주로 참고하는 유형</span></div>
+    return `<div class="keepstats"><div class="kshead"><svg class="ic" aria-hidden="true"><use href="#ic-chart-bar"></use></svg> 담은 사례 경향 <span class="muted">총 ${list.length}건 — 주로 참고하는 유형</span></div>
       <div class="ksrow"><span class="kslab">분야</span><div class="ksvals">${chips(cnt("분야"), 4)}</div></div>
       <div class="ksrow"><span class="kslab">위반유형</span><div class="ksvals">${chips(cnt("위반유형"), 4)}</div></div>
       <div class="ksrow"><span class="kslab">처분</span><div class="ksvals">${dchips}</div></div>
@@ -64,14 +64,14 @@ window.Digest = (function () {
   function renderKeepList() {
     const box = document.getElementById("keepList"); if (!box) return;
     const list = keptCards();
-    if (!list.length) { box.innerHTML = `<div class="keepempty"><div class="big">⭐</div>아직 담은 사례가 없습니다.<br>사례 목록·상세에서 <b>☆</b>를 눌러 담아 보세요.</div>`; return; }
+    if (!list.length) { box.innerHTML = `<div class="keepempty"><div class="big"><svg class="ic" aria-hidden="true"><use href="#ic-star"></use></svg></div>아직 담은 사례가 없습니다.<br>사례 목록·상세에서 <b>☆</b>를 눌러 담아 보세요.</div>`; return; }
     box.innerHTML = keepToolsHtml() + keepStatsHtml(list) + list.map(caseCardHtml).join("");
     wireCards(box, openCaseModal);
     wireKeepTools(box, list);
   }
   // ----- 내 사례함 도구(A⑥): 비교표 HWP 복사 · JSON 백업/가져오기 — 전부 로컬 동작·외부 전송 0 -----
   function keepToolsHtml() {
-    return `<div class="keeptools"><button class="ktbtn pri" id="ktCopy" type="button" title="담은 선례 전체를 표로 복사 — 한글(HWP)·워드에 표 그대로 붙습니다">📋 비교표 복사</button><button class="ktbtn" id="ktExp" type="button" title="내 사례함·메모를 JSON 파일로 백업(이 기기에 저장)">⬇ 백업(JSON)</button><button class="ktbtn" id="ktImp" type="button" title="백업 JSON을 불러와 현재 사례함·메모에 합칩니다">⬆ 가져오기</button><input id="ktFile" type="file" accept=".json,application/json" hidden></div>`;
+    return `<div class="keeptools"><button class="ktbtn pri" id="ktCopy" type="button" title="담은 선례 전체를 표로 복사 — 한글(HWP)·워드에 표 그대로 붙습니다"><svg class="ic" aria-hidden="true"><use href="#ic-clipboard-list"></use></svg> 비교표 복사</button><button class="ktbtn" id="ktExp" type="button" title="내 사례함·메모를 JSON 파일로 백업(이 기기에 저장)">⬇ 백업(JSON)</button><button class="ktbtn" id="ktImp" type="button" title="백업 JSON을 불러와 현재 사례함·메모에 합칩니다">⬆ 가져오기</button><input id="ktFile" type="file" accept=".json,application/json" hidden></div>`;
   }
   function wireKeepTools(box, list) {
     const cp = box.querySelector("#ktCopy"); if (cp) cp.onclick = async () => {
@@ -81,7 +81,7 @@ window.Digest = (function () {
       let ok = false;
       try { if (window.ClipboardItem) { await navigator.clipboard.write([new ClipboardItem({ "text/html": new Blob([html], { type: "text/html" }), "text/plain": new Blob([plain], { type: "text/plain" }) })]); ok = true; } } catch (e) {}
       if (!ok) { try { await navigator.clipboard.writeText(plain); ok = true; } catch (e) {} }
-      cp.textContent = ok ? "✓ 복사됨 — 한글에 붙여넣기" : "복사 실패(브라우저 권한 확인)"; setTimeout(() => { cp.textContent = "📋 비교표 복사"; }, 2400);
+      cp.textContent = ok ? "✓ 복사됨 — 한글에 붙여넣기" : "복사 실패(브라우저 권한 확인)"; setTimeout(() => { cp.textContent = "비교표 복사"; }, 2400);
     };
     const ex = box.querySelector("#ktExp"); if (ex) ex.onclick = () => {
       let memos = []; try { memos = JSON.parse(localStorage.getItem("memos") || "[]"); } catch (e) {}
@@ -116,7 +116,7 @@ window.Digest = (function () {
     return m[name] = n; }
   function lawsHtml(list) {
     const rows = list.map((l, i) => { const p = lawParse(l);
-      const icon = (_oc && p.jo) ? "📖" : "↗";
+      const icon = (_oc && p.jo) ? `<svg class="ic" aria-hidden="true"><use href="#ic-book-open"></use></svg>` : "↗";
       const n = lawCount(p.name);
       return `<div class="lawrow"><span class="lawpill lawone" data-i="${i}" title="${esc(l)}">${esc(l)} <span class="lawact">${icon}</span></span>${n > 1 ? `<button class="lawfind" type="button" data-name="${esc(p.name)}" title="위반 법령에 「${esc(p.name)}」이 포함된 선례를 탐색에서 검색">선례 ${fmt(n)}건</button>` : ""}</div>`;
     }).join("");
@@ -154,7 +154,7 @@ window.Digest = (function () {
         const et = r && r.errorType; let msg;
         if (et === "deleted") msg = "현행 법령에서 <b>삭제·이동된 조문</b>입니다(행위 당시엔 존재). 아래 ‘국가법령정보센터에서 보기’의 연혁에서 확인하세요.";
         else if (et === "absent") msg = "법제처(법령·행정규칙·자치법규)에서 찾지 못했습니다. <b>정관·내규 등 비공개 규정</b>일 수 있어 원문(화성시·해당 기관)에서 확인하세요.";
-        else if (et === "auth") msg = "법제처 인증 실패 — ⚙️ 설정에서 OC를 확인하세요.";
+        else if (et === "auth") msg = `법제처 인증 실패 — <svg class="ic" aria-hidden="true"><use href="#ic-settings"></use></svg> 설정에서 OC를 확인하세요.`;
         else if (et === "network") msg = "법제처 연결 실패 — 잠시 후 다시 시도하세요.";
         else if (et === "notfound") msg = `해당 조문을 찾지 못했습니다 (${esc((r.law && r.law.title) || p.name)}).`;
         else msg = `조문을 불러오지 못했습니다 (${esc((r && (r.error || r.errorType)) || "오류")}).`;
@@ -223,27 +223,27 @@ window.Digest = (function () {
         <h3 class="dt-h">${esc(c.제목 || "(제목없음)")}</h3>
         <div class="ctools"><button class="keepbtn js-keep ${kept ? "on" : ""}" title="내 사례함에 담기 (단축키: S)" aria-keyshortcuts="S">${kept ? "★" : "☆"}</button>${wide}</div>
       </div>
-      <div class="dt-m">${dispBadges(c)}${(c.위반유형 || []).filter(v => !String(v).startsWith("(")).map(v => `<span class="vt">${esc(v)}</span>`).join("")}${(c.소주제 || []).map(v => `<span class="subtag" title="세부 주제">${esc(v)}</span>`).join("")}${(c.dupN >= 3) ? `<span class="repmini" title="동일 유형 지적이 ${c.dupN}건 — 여러 기관에서 반복(구조적·제도개선 점검 신호)">🔁 반복 ${c.dupN}건</span>` : ""}<span class="yr">· ${c.연도 || ""} · ${esc(c.기관계열 || "")}</span></div>
+      <div class="dt-m">${dispBadges(c)}${(c.위반유형 || []).filter(v => !String(v).startsWith("(")).map(v => `<span class="vt">${esc(v)}</span>`).join("")}${(c.소주제 || []).map(v => `<span class="subtag" title="세부 주제">${esc(v)}</span>`).join("")}${(c.dupN >= 3) ? `<span class="repmini" title="동일 유형 지적이 ${c.dupN}건 — 여러 기관에서 반복(구조적·제도개선 점검 신호)"><svg class="ic" aria-hidden="true"><use href="#ic-repeat"></use></svg> 반복 ${c.dupN}건</span>` : ""}<span class="yr">· ${c.연도 || ""} · ${esc(c.기관계열 || "")}</span></div>
       ${flowStrip(c)}
-      ${(c.중점점검 && c.중점점검.length) ? `<div class="critbadge" title="정기감사로 잘 드러나지 않아 별도 확인이 필요한 유형 모음입니다. 징계 감경 제외(공무원 징계령 시행규칙 §4②)·징계시효 특례(국가공무원법 §83-2)에 해당할 수 있습니다. 법정 단일 정의는 없으며, 키워드로 식별한 확인 대상이므로 반드시 원문을 확인하세요.">🔎 중점 점검 비위 · ${c.중점점검.map(esc).join(" · ")} <span class="crit-q">확인 대상 · 원문 확인</span></div>` : ""}
-      ${(c.형사연계 && c.형사연계.length) ? `<div class="crimebadge" title="감사기관이 수사기관에 고발·수사의뢰한 사건입니다. 주처분(징계·통보 등)과 별개로 부가될 수 있어 별도로 식별합니다. 처분 수위·범죄 성립 판단과는 무관하며 원문을 확인하세요.">⚖️ 형사 연계 · ${c.형사연계.map(esc).join(" · ")}</div>` : ""}
+      ${(c.중점점검 && c.중점점검.length) ? `<div class="critbadge" title="정기감사로 잘 드러나지 않아 별도 확인이 필요한 유형 모음입니다. 징계 감경 제외(공무원 징계령 시행규칙 §4②)·징계시효 특례(국가공무원법 §83-2)에 해당할 수 있습니다. 법정 단일 정의는 없으며, 키워드로 식별한 확인 대상이므로 반드시 원문을 확인하세요."><svg class="ic" aria-hidden="true"><use href="#ic-search"></use></svg> 중점 점검 비위 · ${c.중점점검.map(esc).join(" · ")} <span class="crit-q">확인 대상 · 원문 확인</span></div>` : ""}
+      ${(c.형사연계 && c.형사연계.length) ? `<div class="crimebadge" title="감사기관이 수사기관에 고발·수사의뢰한 사건입니다. 주처분(징계·통보 등)과 별개로 부가될 수 있어 별도로 식별합니다. 처분 수위·범죄 성립 판단과는 무관하며 원문을 확인하세요."><svg class="ic" aria-hidden="true"><use href="#ic-scale"></use></svg> 형사 연계 · ${c.형사연계.map(esc).join(" · ")}</div>` : ""}
       ${c.요지 ? `<div class="dt-sec prime"><h4>요지 〈화성시 처분요구서 인용·발췌〉</h4><div class="body">${fmtBody(c.요지)}</div></div>` : ""}
       ${c.위반사실 ? `<div class="dt-sec prime"><h4>위반사실 〈발췌〉</h4><div class="body">${fmtBody(c.위반사실, c.핵심구)}</div></div>` : ""}
       ${c.원인 ? `<div class="dt-sec prime"><h4>원인 · 통제미비점 <span class="muted" style="font-weight:400;font-size:11px">〈요약·정리〉</span></h4><div class="body">${fmtBody(c.원인)}</div></div>` : ""}
       <div class="dt-sec facts"><h4>출처 · 원문</h4>
         <div class="body" style="font-size:12px;color:var(--muted)">${esc(c.감사명 || "")}<br>공개일 ${c.공개일 || ""} · 감사종류 ${esc(c.감사종류 || "")}${c.종류추정 ? `<span class="infer" title="처분요구서와 확정 교차대조 전 — 추정 분류입니다(시청 누리집에 해당 감사 결과가 공개되지 않아 미확정).">˚추정</span>` : ""} · 순번 ${c.srno}${(c.근거페이지 && c.근거페이지.length) ? ` · 근거 ${c.근거페이지.map(esc).join(", ")}` : ""}${isCsd ? " · (CSD 원문·검색전용)" : ""}</div>
-        <div class="docbtns"><button class="docbtn js-bai">🔎 원문 열람</button><button class="docbtn js-memo">📝 메모에 담기</button><button class="copybtn js-cite" style="margin-top:0">📋 인용 복사</button></div>
+        <div class="docbtns"><button class="docbtn js-bai"><svg class="ic" aria-hidden="true"><use href="#ic-search"></use></svg> 원문 열람</button><button class="docbtn js-memo"><svg class="ic" aria-hidden="true"><use href="#ic-square-pen"></use></svg> 메모에 담기</button><button class="copybtn js-cite" style="margin-top:0"><svg class="ic" aria-hidden="true"><use href="#ic-clipboard-list"></use></svg> 인용 복사</button></div>
         <div style="font-size:11px;color:var(--muted);margin-top:7px">사례 길잡이는 ‘요지(참고)’ — 처분 결정 시 원문 확인</div></div>
       ${(c.위반법령 && c.위반법령.length) ? `<div class="dt-sec"><h4>위반 법령</h4>${lawsHtml(c.위반법령)}</div>` : ""}
       ${amt ? `<div class="dt-sec"><h4>금액</h4><div class="amt">${esc(amt)}</div></div>` : ""}
       ${(c.착안점 && c.착안점.length) ? `<div class="dt-sec"><h4>감사 착안점 <span class="muted" style="font-weight:400;font-size:11px">〈AI 분석·참고〉</span></h4>${c.착안점.map(a => `<div class="aki">${esc(a)}</div>`).join("")}</div>` : ""}
-      ${c.적신호 ? `<div class="dt-sec redflag"><h4>🚩 적신호 <span class="muted" style="font-weight:400;font-size:11px">〈AI 생성·참고〉</span> — 이런 정황이면 점검할 지점</h4><div class="body">${fmtBody(neutralRedflag(c.적신호))}</div></div>` : ""}
-      ${(typeof c.비지적 === "string" && c.비지적.trim().length > 8) ? `<div class="dt-sec nonflag"><h4>✅ 비지적 · 참고 〈처분요구서 발췌〉</h4><div class="body">${fmtBody(c.비지적)}</div></div>` : ""}
+      ${c.적신호 ? `<div class="dt-sec redflag"><h4><svg class="ic" aria-hidden="true"><use href="#ic-flag"></use></svg> 적신호 <span class="muted" style="font-weight:400;font-size:11px">〈AI 생성·참고〉</span> — 이런 정황이면 점검할 지점</h4><div class="body">${fmtBody(neutralRedflag(c.적신호))}</div></div>` : ""}
+      ${(typeof c.비지적 === "string" && c.비지적.trim().length > 8) ? `<div class="dt-sec nonflag"><h4><svg class="ic" aria-hidden="true"><use href="#ic-circle-check"></use></svg> 비지적 · 참고 〈처분요구서 발췌〉</h4><div class="body">${fmtBody(c.비지적)}</div></div>` : ""}
       ${(() => {   // 설계서 #3: 유사 선례(의미 유사·빌드타임 사전계산·런타임 LLM0). related.js 없으면 미표시(폴백).
         const rel = (window.RELATED && window.RELATED[c.id]) || [];
         if (!rel.length) return "";
         const rows = rel.map(r => { const x = ALL.find(k => k.id === r.id); if (!x) return ""; const [c2, t2] = dispClass(x.처분종류); return `<button class="relrow" type="button" data-rid="${x.id}" title="유사도 ${Math.round((r.score||0)*100)}%"><span class="relt">${esc(x.제목 || "(제목없음)")}</span><span class="reld disp ${c2}">${esc(t2)}</span><span class="rely">${x.연도 || ""}</span></button>`; }).filter(Boolean).join("");
-        return rows ? `<div class="dt-sec related"><h4>🔗 유사 선례 <span class="muted" style="font-weight:400;font-size:11px">의미 유사 · AI 사전 분석</span></h4><div class="rell">${rows}</div></div>` : "";
+        return rows ? `<div class="dt-sec related"><h4><svg class="ic" aria-hidden="true"><use href="#ic-link"></use></svg> 유사 선례 <span class="muted" style="font-weight:400;font-size:11px">의미 유사 · AI 사전 분석</span></h4><div class="rell">${rows}</div></div>` : "";
       })()}
       ${(() => {   // 꼬리 계층(피로 S4): 근거페이지·같은 보고서·출처 → 접이(details) — 펼친 내부는 기존 구조 그대로
         const sib = ALL.filter(x => x.srno === c.srno && x.id !== c.id);
@@ -259,7 +259,7 @@ window.Digest = (function () {
     root.querySelectorAll(".lawone").forEach(b => b.onclick = () => { const p = lawParse(c.위반법령[parseInt(b.dataset.i, 10)]); if (_oc && p.jo) openLawModal(p, c.공개일); else window.open(lawPublicUrl(p), "_blank"); });
     const bb = root.querySelector(".js-bai"); if (bb) bb.onclick = () => openBai(c);
     const mb = root.querySelector(".js-memo"); if (mb) mb.onclick = () => { try { window.Memo.addCase(c); } catch (e) {} };
-    const cp = root.querySelector(".js-cite"); if (cp) cp.onclick = () => { const t = `${c.제목} (화성시 ${c.감사명}, 순번 ${c.srno}${(c.근거페이지 || []).length ? ", " + c.근거페이지.join("·") : ""})`; try { navigator.clipboard.writeText(t); } catch (e) {} cp.textContent = "✓ 복사됨"; setTimeout(() => cp.textContent = "📋 인용 복사", 1500); };
+    const cp = root.querySelector(".js-cite"); if (cp) cp.onclick = () => { const t = `${c.제목} (화성시 ${c.감사명}, 순번 ${c.srno}${(c.근거페이지 || []).length ? ", " + c.근거페이지.join("·") : ""})`; try { navigator.clipboard.writeText(t); } catch (e) {} cp.textContent = "✓ 복사됨"; setTimeout(() => cp.textContent = "인용 복사", 1500); };
     const inModal = root.id === "caseModalBody";   // 같은 보고서 묶음 — 항목 클릭 시 같은 표면(패널/팝업)에서 이동
     root.querySelectorAll(".sditem[data-sid]").forEach(b => b.onclick = () => { const sid = b.dataset.sid; inModal ? openCaseModal(sid) : showDetail(sid); });
     root.querySelectorAll(".relrow[data-rid]").forEach(b => b.onclick = () => { const rid = b.dataset.rid; inModal ? openCaseModal(rid) : showDetail(rid); });   // #3 유사 선례 클릭 → 이동
@@ -343,7 +343,7 @@ window.Digest = (function () {
     toks.forEach(t => { try { s = s.replace(new RegExp(t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi"), m => `<mark class="qmark">${m}</mark>`); } catch (e) {} });
     return s; }
   function caseCardHtml(c) { const [cls, txt] = dispClass(c.처분종류);
-    return `<div class="case" data-id="${c.id}"><button class="keepstar js-star ${isKept(c.id) ? "on" : ""}" data-keep="${c.id}" title="내 사례함에 담기 (단축키: S)" aria-keyshortcuts="S">${isKept(c.id) ? "★" : "☆"}</button><div class="ct">${hl(c.제목 || "(제목없음)")}</div>${(flowOn() && c.구조 && c.구조.행위자 && c.구조.행위) ? flowStripMini(c) : `<div class="cs">${hl(IS_MOB() ? firstSentence(c.요지 || "") : (c.요지 || ""))}</div>`}<div class="cm">${dispBadges(c)}${(c.위반유형 || []).slice(0, 2).map(v => `<span class="vt">${esc(v)}</span>`).join("")}${(c.소주제 || []).slice(0, 2).map(v => `<span class="subtag">${esc(v)}</span>`).join("")}${(c.중점점검 && c.중점점검.length) ? `<span class="critmini" title="중점 점검 비위 · 확인 대상 · 원문 확인">🔎 ${esc(c.중점점검[0])}${c.중점점검.length > 1 ? " 외" : ""}</span>` : ""}${(c.형사연계 && c.형사연계.length) ? `<span class="crimemini" title="형사 연계 · 감사기관 고발·수사의뢰 · 원문 확인">⚖️ ${esc(c.형사연계[0])}</span>` : ""}${(c.dupN >= 3) ? `<span class="repmini" title="동일 유형 지적이 ${c.dupN}건 — 여러 기관에서 반복(구조적·제도개선 점검 신호)">🔁 반복 ${c.dupN}</span>` : ""}<span class="yr">· ${c.연도 || ""} · ${esc(c.기관계열 || "")}</span></div></div>`; }
+    return `<div class="case" data-id="${c.id}"><button class="keepstar js-star ${isKept(c.id) ? "on" : ""}" data-keep="${c.id}" title="내 사례함에 담기 (단축키: S)" aria-keyshortcuts="S">${isKept(c.id) ? "★" : "☆"}</button><div class="ct">${hl(c.제목 || "(제목없음)")}</div>${(flowOn() && c.구조 && c.구조.행위자 && c.구조.행위) ? flowStripMini(c) : `<div class="cs">${hl(IS_MOB() ? firstSentence(c.요지 || "") : (c.요지 || ""))}</div>`}<div class="cm">${dispBadges(c)}${(c.위반유형 || []).slice(0, 2).map(v => `<span class="vt">${esc(v)}</span>`).join("")}${(c.소주제 || []).slice(0, 2).map(v => `<span class="subtag">${esc(v)}</span>`).join("")}${(c.중점점검 && c.중점점검.length) ? `<span class="critmini" title="중점 점검 비위 · 확인 대상 · 원문 확인"><svg class="ic" aria-hidden="true"><use href="#ic-search"></use></svg> ${esc(c.중점점검[0])}${c.중점점검.length > 1 ? " 외" : ""}</span>` : ""}${(c.형사연계 && c.형사연계.length) ? `<span class="crimemini" title="형사 연계 · 감사기관 고발·수사의뢰 · 원문 확인"><svg class="ic" aria-hidden="true"><use href="#ic-scale"></use></svg> ${esc(c.형사연계[0])}</span>` : ""}${(c.dupN >= 3) ? `<span class="repmini" title="동일 유형 지적이 ${c.dupN}건 — 여러 기관에서 반복(구조적·제도개선 점검 신호)"><svg class="ic" aria-hidden="true"><use href="#ic-repeat"></use></svg> 반복 ${c.dupN}</span>` : ""}<span class="yr">· ${c.연도 || ""} · ${esc(c.기관계열 || "")}</span></div></div>`; }
   function wireCards(container, onOpen) {
     container.querySelectorAll(".case").forEach(el => el.onclick = () => onOpen(el.dataset.id));
     container.querySelectorAll(".js-star").forEach(b => b.onclick = e => { e.stopPropagation(); const id = b.dataset.keep; toggleKeep(id); const on = isKept(id); b.classList.toggle("on", on); b.textContent = on ? "★" : "☆"; });
@@ -456,8 +456,8 @@ window.Digest = (function () {
 
   // ----- 주제·표식 통합 팝오버(중점점검 · 형사연계 · 세부주제) -----
   const PICK_GROUPS = [
-    { dim: "crit", cls: "crit", icon: "🔎", label: "중점 점검 비위", fk: "중점점검" },
-    { dim: "crime", cls: "crime", icon: "⚖️", label: "형사 연계", fk: "형사연계" },
+    { dim: "crit", cls: "crit", icon: `<svg class="ic" aria-hidden="true"><use href="#ic-search"></use></svg>`, label: "중점 점검 비위", fk: "중점점검" },
+    { dim: "crime", cls: "crime", icon: `<svg class="ic" aria-hidden="true"><use href="#ic-scale"></use></svg>`, label: "형사 연계", fk: "형사연계" },
     { dim: "sub", cls: "", icon: "", label: "주제 분류", fk: "소주제군" },
   ];
   function buildPicker() {
@@ -533,9 +533,9 @@ window.Digest = (function () {
     if (!m) { m = document.createElement("div"); m.id = "chkModal"; m.className = "chkmodal"; document.body.appendChild(m); }
     const scope = `${extLabel || LAST_CRUMB || "전체"} · ${fmt(res.length)}건`;
     const itemHtml = p => `<div class="chk-i" data-id="${p.id}"><input type="checkbox"><span class="chk-t">${esc(p.a)}</span><em>${esc(p.yr)}</em><button class="chk-star${isKept(p.id) ? " on" : ""}" type="button" title="이 착안점의 사례를 내 사례함에 담기">${isKept(p.id) ? "★" : "☆"}</button><button class="chk-go" type="button" title="사례 상세 보기">↗</button></div>`;
-    m.innerHTML = `<div class="chk-card"><div class="chk-h"><b>📋 사례로 점검하기</b><span class="chk-sub">${esc(scope)}</span><button class="chk-x" type="button" title="닫기">✕</button></div>
+    m.innerHTML = `<div class="chk-card"><div class="chk-h"><b><svg class="ic" aria-hidden="true"><use href="#ic-clipboard-list"></use></svg> 사례로 점검하기</b><span class="chk-sub">${esc(scope)}</span><button class="chk-x" type="button" title="닫기">✕</button></div>
       <div class="chk-body">${rows.map(r => `<div class="chk-grp"><div class="chk-g"><span class="chk-gt">${esc(r.sub)}</span><em>선례 ${fmt(r.n)}건</em></div>${r.picked.map(itemHtml).join("")}${r.more.length ? `<div class="chk-more" hidden>${r.more.map(itemHtml).join("")}</div><button class="chk-mb" type="button">▾ 더보기 (${fmt(r.more.length)})</button>` : ""}</div>`).join("") || '<div class="muted" style="padding:8px 2px;font-size:12.5px">이 결과에는 세부주제·착안점 정보가 부족합니다 — 필터를 넓히거나 주제를 지정해 보세요.</div>'}</div>
-      <div class="chk-f"><button id="chkMemo" type="button" disabled>📝 메모에 담기</button><span class="chk-src">☑ 체크 → 메모에 담기 · ★ 내 사례함 · ↗ 상세 · 건수=사실 집계</span></div></div>`;
+      <div class="chk-f"><button id="chkMemo" type="button" disabled><svg class="ic" aria-hidden="true"><use href="#ic-square-pen"></use></svg> 메모에 담기</button><span class="chk-src"><svg class="ic" aria-hidden="true"><use href="#ic-square-check"></use></svg> 체크 → 메모에 담기 · ★ 내 사례함 · ↗ 상세 · 건수=사실 집계</span></div></div>`;
     if (!m.classList.contains("on")) ovOpen("chk", () => m.classList.remove("on"));
     m.classList.add("on");
     m.querySelectorAll(".chk-mb").forEach(b => b.onclick = () => { const more = b.previousElementSibling; if (more) more.hidden = false; b.remove(); });
@@ -543,7 +543,7 @@ window.Digest = (function () {
     const checkedRows = () => [...m.querySelectorAll(".chk-i")].filter(it =>
       it.querySelector("input").checked && !(it.closest(".chk-more") && it.closest(".chk-more").hidden));
     const mbtn = m.querySelector("#chkMemo");
-    const syncBtns = () => { const n = checkedRows().length; mbtn.disabled = !n; mbtn.textContent = n ? `📝 메모에 담기 (${n})` : "📝 메모에 담기"; };
+    const syncBtns = () => { const n = checkedRows().length; mbtn.disabled = !n; mbtn.textContent = n ? `메모에 담기 (${n})` : "메모에 담기"; };
     m.onchange = (e) => { if (e.target && e.target.matches(".chk-i input")) { syncBtns(); const gw = e.target.closest(".chk-grp"); if (e.target.checked && gw) gw.classList.add("haspick"); } };
     m.onclick = (e) => {   // onclick 단일 할당(innerHTML 재생성 시 리스너 중복 방지) — 바깥 클릭 닫기 + 행 위임
       if (e.target === m) { m.classList.remove("on"); ovDone("chk"); return; }
@@ -634,9 +634,9 @@ window.Digest = (function () {
     const cr = [];
     if (F.fld) cr.push(["fld", F.fld]); if (F.viol) cr.push(["viol", F.viol]);
     if (F.sub) cr.push(["sub", F.sub]);
-    if (F.chae) cr.push(["chae", "🧑‍💼 채용실태 전수조사"]);
-    if (F.crit) cr.push(["crit", "🔎 " + F.crit]);
-    if (F.crime) cr.push(["crime", "⚖️ " + F.crime]);
+    if (F.chae) cr.push(["chae", "채용실태 전수조사"]);
+    if (F.crit) cr.push(["crit", F.crit]);
+    if (F.crime) cr.push(["crime", F.crime]);
     ["gye", "knd", "disp"].forEach(k => { if (F[k]) cr.push([k, F[k]]); });
     if (F.yrFrom != null && !(F.yrFrom === MINY && F.yrTo === MAXY)) cr.push(["yr", F.yrFrom === F.yrTo ? F.yrFrom + "" : F.yrFrom + "–" + F.yrTo]);
     const crEl = document.getElementById("crumbs");
