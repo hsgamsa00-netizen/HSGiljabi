@@ -688,7 +688,7 @@ html[data-theme="dark"] .rb-q,html[data-theme="dark"] .rb-q2,html[data-theme="da
 
 /* ===== 온보딩 ===== */
 .oi-overlay{position:fixed;inset:0;background:radial-gradient(1200px 600px at 50% -5%,#1b2a3e 0%,#0f1722 60%);display:flex;align-items:center;justify-content:center;padding:24px;z-index:100}
-.oi-modal{width:min(1080px,96vw);background:var(--card);border-radius:var(--r-card);box-shadow:0 30px 80px rgba(0,0,0,.45);padding:30px 32px 22px;position:relative;overflow:hidden}
+.oi-modal{width:min(1080px,96vw);background:var(--card);border-radius:var(--r-card);box-shadow:0 30px 80px rgba(0,0,0,.45);padding:30px 32px 22px;position:relative;max-height:calc(100vh - 48px);overflow:hidden auto}
 .oi-modal::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:var(--hs)}  /* 온보딩 화성 오렌지 브랜드 띠(그라데이션 제거) */
 .oi-head{text-align:center;margin-bottom:24px}
 .oi-brand{font-size:var(--text-sm);font-weight:700;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);display:inline-block;padding:4px 13px;border-radius:var(--r-chip);margin-bottom:12px}
