@@ -13,7 +13,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="stylesheet" href="styles.css?v=0.1.45">
+<link rel="stylesheet" href="styles.css?v=0.1.46">
 <script>try{if(localStorage.getItem("theme_key")!=="light")document.documentElement.setAttribute("data-theme","dark");}catch(e){}</script>
 </head>
 <body>
@@ -122,7 +122,7 @@
     <div class="hmglab">처음 익히기 <span>사례로 익히기</span></div>
     <div class="hmchips">
       <button class="hmchip" data-help="follow" type="button"><svg class="ic" aria-hidden="true"><use href="#ic-pencil"></use></svg> 따라 하기</button>
-      <button class="hmchip" data-help="intro" type="button"><svg class="ic" aria-hidden="true"><use href="#ic-hand"></use></svg> 시작 화면</button>
+      <button class="hmchip" data-help="intro" type="button"><svg class="ic" aria-hidden="true"><use href="#ic-hand"></use></svg> 시작 안내</button>
     </div>
   </div>
   <div class="hmguide">
@@ -258,7 +258,7 @@
         </aside>
       </div>
       <div id="rebutOut" class="rebutout"></div>
-      <div id="saTreePop" class="satreepop" hidden><div class="satreepop-card"><div class="satreepop-h"><b><svg class="ic" aria-hidden="true"><use href="#ic-folder"></use></svg> 주제로 찾기</b> <span class="muted">주제를 누르면 유사 선례·처분 분포·착안점 검색</span><button id="saTreeClose" class="satreepop-x" type="button" title="닫기">✕</button></div><div class="satreepop-note"><svg class="ic" aria-hidden="true"><use href="#ic-folder"></use></svg> <b>분야</b>=업무 영역 · ⚡ <b>주제</b>=구체 사안 · “사례 많은 순”=정렬 <button class="cm-link" data-concept type="button">분류 기준 ⓘ</button></div><div class="sapop-sec"><div class="sapop-lab">⚡ 자주 적발된 주제 <span class="muted">정렬 기준(사실 축)</span></div><div class="sasort" id="saSort"></div><div class="sachips" id="saChips"></div></div><div class="sapop-sec"><div class="sapop-lab"><svg class="ic" aria-hidden="true"><use href="#ic-folder"></use></svg> 분야별 전체 <span class="muted">화성시 감사 분류 · 펼쳐 선택</span></div><div class="satree" id="saTree" role="tree" aria-label="분야별 소주제"></div></div><div class="sahint">※ 건수 = 화성시 자체감사 자료 집계 사례 수이며 중요도·난이도가 아닙니다. 위 ‘자주 적발된 주제’는 <b>전체 기준</b>, 분야 펼침 속 건수는 <b>그 분야 안 기준</b>입니다 — 한 사례가 여러 분야에 속할 수 있어 둘이 다를 수 있습니다.</div></div></div>
+      <div id="saTreePop" class="satreepop" hidden><div class="satreepop-card"><div class="satreepop-h"><b><svg class="ic" aria-hidden="true"><use href="#ic-folder"></use></svg> 주제로 찾기</b> <span class="muted">주제를 누르면 유사 선례·처분 분포·착안점 검색</span><button id="saTreeClose" class="satreepop-x" type="button" title="닫기" aria-label="닫기">✕</button></div><div class="satreepop-note"><svg class="ic" aria-hidden="true"><use href="#ic-folder"></use></svg> <b>분야</b>=업무 영역 · ⚡ <b>주제</b>=구체 사안 · “사례 많은 순”=정렬 <button class="cm-link" data-concept type="button">분류 기준 ⓘ</button></div><div class="sapop-sec"><div class="sapop-lab">⚡ 자주 적발된 주제 <span class="muted">정렬 기준(사실 축)</span></div><div class="sasort" id="saSort"></div><div class="sachips" id="saChips"></div></div><div class="sapop-sec"><div class="sapop-lab"><svg class="ic" aria-hidden="true"><use href="#ic-folder"></use></svg> 분야별 전체 <span class="muted">화성시 감사 분류 · 펼쳐 선택</span></div><div class="satree" id="saTree" role="tree" aria-label="분야별 소주제"></div></div><div class="sahint">※ 건수 = 화성시 자체감사 자료 집계 사례 수이며 중요도·난이도가 아닙니다. 위 ‘자주 적발된 주제’는 <b>전체 기준</b>, 분야 펼침 속 건수는 <b>그 분야 안 기준</b>입니다 — 한 사례가 여러 분야에 속할 수 있어 둘이 다를 수 있습니다.</div></div></div>
     </div>
   </div>
 </div>
@@ -275,7 +275,7 @@
 <!-- 넓은 공용 사례 상세 팝업 -->
 <div class="casemodal" id="caseModal">
   <div class="casemodal-card" role="dialog" aria-modal="true" aria-labelledby="caseModalTag">
-    <div class="casemodal-h"><b id="caseModalTag">사례 상세</b><button class="cx" id="caseModalClose" title="닫기">✕</button></div>
+    <div class="casemodal-h"><b id="caseModalTag">사례 상세</b><button class="cx" id="caseModalClose" title="닫기" aria-label="닫기">✕</button></div>
     <div class="casemodal-body" id="caseModalBody"></div>
   </div>
 </div>
@@ -283,7 +283,7 @@
 <!-- 정보 -->
 <div class="aboutmodal" id="aboutModal">
   <div class="about-card" role="dialog" aria-modal="true" aria-label="정보 및 출처">
-    <div class="about-h"><div><span class="at">화성 자체감사 길잡이</span><span class="av">v0.1.0</span></div><button class="ax" id="aboutClose" title="닫기">✕</button></div>
+    <div class="about-h"><div><span class="at">화성 자체감사 길잡이</span><span class="av">v0.1.0</span></div><button class="ax" id="aboutClose" title="닫기" aria-label="닫기">✕</button></div>
     <div class="about-by"><svg class="ic" aria-hidden="true"><use href="#ic-landmark"></use></svg> 화성특례시 감사관 제작</div>
     <div class="about-desc">화성시 자체감사 결과(처분요구서 등)를 사례 카드로 정리해 착안점·유사 처분례·근거 법령을 빠르게 찾는 <b>업무 참고용</b> 도구입니다.</div>
     <div class="about-desc about-mission">여러 해에 걸쳐 공개된 화성시 자체감사 기록을 한자리에 모아 검색·비교할 수 있게 정리한 자료입니다.</div>
@@ -323,7 +323,7 @@
 <!-- 플로팅 메모 -->
 <button id="memoFab" class="memo-fab" title="메모"><svg class="ic" aria-hidden="true"><use href="#ic-square-pen"></use></svg></button>
 <div class="memo-panel" id="memoPanel">
-  <div class="memo-h"><b><svg class="ic" aria-hidden="true"><use href="#ic-square-pen"></use></svg> 메모</b><div class="memo-htools"><button id="memoAdd" class="memo-addbtn">＋ 새 메모</button><button id="memoClose" class="memo-x" title="닫기">✕</button></div></div>
+  <div class="memo-h"><b><svg class="ic" aria-hidden="true"><use href="#ic-square-pen"></use></svg> 메모</b><div class="memo-htools"><button id="memoAdd" class="memo-addbtn">＋ 새 메모</button><button id="memoClose" class="memo-x" title="닫기" aria-label="닫기">✕</button></div></div>
   <div class="memo-list" id="memoList"></div>
   <div class="memo-foot">현장 의견·착안점을 저장하는 메모입니다 · 이 기기에만 저장(외부 전송 없음) · 첫 줄이 제목이 됩니다.</div>
 </div>
@@ -333,7 +333,7 @@
   <div class="lawmodal-card" role="dialog" aria-modal="true" aria-labelledby="lawmTitle">
     <div class="lawmodal-h">
       <div><div class="lt" id="lawmTitle">조문</div><div class="lsrc" id="lawmSrc"></div></div>
-      <button class="lx" id="lawmClose" title="닫기">✕</button>
+      <button class="lx" id="lawmClose" title="닫기" aria-label="닫기">✕</button>
     </div>
     <div class="lawmodal-body" id="lawmBody"></div>
     <div class="lawmodal-foot"><span id="lawmEff"></span><a id="lawmExt" href="#" target="_blank" rel="noopener">국가법령정보센터에서 보기 ↗</a></div>
@@ -341,19 +341,19 @@
 </div>
 
 <!-- R0 데이터 분할 로드 — meta(집계·트리) + 카드 6파트(연도 오름차순·병렬 다운로드·증분 캐시) + join -->
-<script src="cards_data.js?v=0.1.45"></script>
-<script src="norm_dict.js?v=0.1.45"></script>
-<script src="related.js?v=0.1.45"></script>
-<script src="kogl.js?v=0.1.45"></script>
-<script src="onboarding.js?v=0.1.45"></script>
-<script src="digest.js?v=0.1.45"></script>
-<script src="graphView.js?v=0.1.45"></script>
-<script src="dashboard.js?v=0.1.45"></script>
-<script src="analysisTutorial.js?v=0.1.45"></script>
-<script src="panelGuide.js?v=0.1.45"></script>
-<script src="followAlong.js?v=0.1.45"></script>
-<script src="tour.js?v=0.1.45"></script>
-<script src="memo.js?v=0.1.45"></script>
-<script src="app.js?v=0.1.45"></script>
+<script src="cards_data.js?v=0.1.46"></script>
+<script src="norm_dict.js?v=0.1.46"></script>
+<script src="related.js?v=0.1.46"></script>
+<script src="kogl.js?v=0.1.46"></script>
+<script src="onboarding.js?v=0.1.46"></script>
+<script src="digest.js?v=0.1.46"></script>
+<script src="graphView.js?v=0.1.46"></script>
+<script src="dashboard.js?v=0.1.46"></script>
+<script src="analysisTutorial.js?v=0.1.46"></script>
+<script src="panelGuide.js?v=0.1.46"></script>
+<script src="followAlong.js?v=0.1.46"></script>
+<script src="tour.js?v=0.1.46"></script>
+<script src="memo.js?v=0.1.46"></script>
+<script src="app.js?v=0.1.46"></script>
 </body>
 </html>
